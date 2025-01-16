@@ -8,7 +8,7 @@
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3s);
 	position: relative;
 	font-family: "Arial", sans-serif;
-	margin: 5%;
+	margin: 1%;
 }
 
 .playing-card-top {
@@ -20,7 +20,6 @@
 	left: 5%;
 	font-weight: bold;
 	line-height: 0.8;
-	color: #333;
 }
 
 .playing-card-center {
@@ -42,7 +41,6 @@
 	rotate: 180deg;
 	font-weight: bold;
 	line-height: 0.8;
-	color: #333;
 }
 
 .playing-card-text {
@@ -55,21 +53,4 @@
 
 .playing-card-symbol-edge {
 	font-size: 3em;
-}
-
-/* Playing Card Suits */
-.playing-card-symbol.heart {
-	color: red;
-}
-
-.playing-card-symbol.diamond {
-	color: red;
-}
-
-.playing-card-symbol.club {
-	color: black;
-}
-
-.playing-card-symbol.spade {
-	color: black;
 }
