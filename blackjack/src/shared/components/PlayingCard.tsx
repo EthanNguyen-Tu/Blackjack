@@ -63,13 +63,14 @@ export const cards = [
 	"2d",
 ];
 
-function PlayingCard({ card = "Ah" }) {
+function PlayingCard({ card = "Ah", sx = {} }) {
+	const cardValue = card.substring(0, card.length - 1);
 	const cardStyle = styles[card[card.length - 1]];
 
 	return (
-		<div className="playing-card" style={{ color: cardStyle.color }}>
+		<div className="playing-card" style={{ color: cardStyle.color, ...sx }}>
 			<div className="playing-card-top">
-				<span className="playing-card-text">{card[0]}</span>
+				<span className="playing-card-text">{cardValue}</span>
 				<span className="playing-card-symbol-edge">
 					{cardStyle.icon}
 				</span>
@@ -78,7 +79,7 @@ function PlayingCard({ card = "Ah" }) {
 				<div className="playing-card-symbol">{cardStyle.icon}</div>
 			</div>
 			<div className="playing-card-bottom">
-				<span className="playing-card-text">{card[0]}</span>
+				<span className="playing-card-text">{cardValue}</span>
 				<span
 					className="playing-card-symbol-edge"
 					color={cardStyle.color}
