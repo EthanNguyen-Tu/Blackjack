@@ -1,0 +1,15 @@
+#blackjack-table {
+	width: 100vw;
+	min-width: 500px;
+	aspect-ratio: 2 / 1;
+	max-height: 80vh;
+	background: #247345;
+	border-radius: 80% / 100%;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	padding: 30px;
+	position: relative;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	border: 30px solid #340a0d;
+	border-top: 0;
+}
