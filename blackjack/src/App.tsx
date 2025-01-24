@@ -34,7 +34,10 @@ function App() {
 				</AppBar>
 			</Grid>
 			<Grid container size={12} justifyContent={"center"}>
-				<Table />
+				<Table
+					dealer_hand={["Ah", "Ac", "Qh", "Qc", "Jd", "Js"]}
+					player_hand={["Ad", "As", "Kh", "Kc", "10d", "10s"]}
+				/>
 			</Grid>
 			{showAllCards && <AllCards />}
 		</Grid>
