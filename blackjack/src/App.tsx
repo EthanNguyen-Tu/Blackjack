@@ -4,9 +4,15 @@ import Settings from "./shared/components/Settings/Settings.tsx";
 import AllCards from "./pages/AllCards.tsx";
 import { AppBar, Toolbar, Typography } from "@mui/material";
 import Table from "./shared/components/Table/Table.tsx";
+import { DeckOfCards } from "./shared/components/PlayingCard/DeckOfCards.ts";
+import DecisionPanel from "./shared/components/DecisionPanel/DecisionPanel.tsx";
 
 function App() {
     const [showAllCards, setShowAllCards] = useState(true);
+    const [dealerHand, setDealerHand] = useState<string[]>([]);
+    const [playerHand, setPlayerHand] = useState([]);
+
+    const deck = new DeckOfCards();
 
     const toggleAllCards = () => setShowAllCards(!showAllCards);
 
@@ -26,6 +32,11 @@ function App() {
                         >
                             Blackjack
                         </Typography>
+                        <DecisionPanel
+                            deck={deck}
+                            setDealerHand={setDealerHand}
+                            setPlayerHand={setPlayerHand}
+                        />
                         <Settings
                             showAllCards={showAllCards}
                             toggleAllCards={toggleAllCards}
@@ -34,10 +45,7 @@ function App() {
                 </AppBar>
             </Grid>
             <Grid container size={12} justifyContent={"center"}>
-                <Table
-                    dealer_hand={["Ah", "Ac", "Qh", "Qc", "Jd", "Js"]}
-                    player_hand={["Ad", "As", "Kh", "Kc", "10d", "10s"]}
-                />
+                <Table dealer_hand={dealerHand} player_hand={playerHand} />
             </Grid>
             {showAllCards && <AllCards />}
         </Grid>
