@@ -1,14 +1,15 @@
 import { Button } from "@mui/material";
 import React from "react";
 import "./DecisionPanel.css";
+import { HandOfCards } from "../PlayingCard/HandOfCards.ts";
 
 function DecisionPanel({ deck, setDealerHand, setPlayerHand }) {
     const handleStart = () => {
-        let hand1: string[] = [];
-        let hand2: string[] = [];
+        const hand1 = new HandOfCards();
+        const hand2 = new HandOfCards();
         for (let i = 0; i < 6; i++) {
-            hand1.push(deck.drawCard());
-            hand2.push(deck.drawCard());
+            hand1.addCard(deck.drawCard());
+            hand2.addCard(deck.drawCard());
         }
         setDealerHand(hand1);
         setPlayerHand(hand2);

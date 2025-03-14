@@ -20,7 +20,7 @@ function Table({ dealer_hand, player_hand }) {
                     alignItems="center"
                 >
                     {dealer_hand &&
-                        dealer_hand.map((card, idx) => (
+                        dealer_hand.getHand().map((card, idx) => (
                             <PlayingCard
                                 card={card}
                                 sx={{
@@ -38,7 +38,7 @@ function Table({ dealer_hand, player_hand }) {
                     alignItems="center"
                 >
                     {player_hand &&
-                        player_hand.map((card, idx) => (
+                        player_hand.getHand().map((card, idx) => (
                             <PlayingCard
                                 card={card}
                                 sx={{
