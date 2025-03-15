@@ -17,7 +17,10 @@ function Settings({ showAllCards, toggleAllCards }) {
         <div>
             <IconButton
                 aria-label="settings"
-                sx={{ fontSize: "clamp(30px, 5vmax, 50px)" }}
+                sx={{
+                    fontSize: "clamp(30px, 5vmax, 50px)",
+                    color: "primary.contrastText",
+                }}
                 onClick={toggleSettings}
             >
                 <SettingsIcon fontSize="inherit" />
