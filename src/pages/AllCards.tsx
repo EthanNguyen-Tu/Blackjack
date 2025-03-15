@@ -9,7 +9,7 @@ function AllCards() {
         <Grid container>
             <Grid container size={12}>
                 {cards.map((card) => (
-                    <PlayingCard card={card} />
+                    <PlayingCard card={card} key={card} />
                 ))}
             </Grid>
         </Grid>
