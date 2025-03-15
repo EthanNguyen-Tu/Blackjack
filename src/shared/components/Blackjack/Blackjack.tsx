@@ -5,8 +5,9 @@ import React, { useState } from "react";
 import { HandOfCards } from "../PlayingCard/HandOfCards.ts";
 import { DeckOfCards } from "../PlayingCard/DeckOfCards.ts";
 import DecisionPanel from "../DecisionPanel/DecisionPanel.tsx";
+import StatisticsMenu from "../StatisticsMenu/StatisticsMenu.tsx";
 
-function Blackjack() {
+function Blackjack({ statsMenuVisibility }) {
     const [dealerHand, setDealerHand] = useState<HandOfCards>();
     const [playerHand, setPlayerHand] = useState<HandOfCards>();
 
@@ -30,6 +31,16 @@ function Blackjack() {
                     position: "absolute",
                     top: "50px",
                     right: "clamp(50px, 10vw, 200px)",
+                }}
+            />
+            <StatisticsMenu
+                visible={statsMenuVisibility}
+                total_games={0}
+                victories={0}
+                sx={{
+                    position: "absolute",
+                    top: "50px",
+                    left: "clamp(50px, 10vw, 200px)",
                 }}
             />
             <Grid

@@ -8,8 +8,11 @@ import Blackjack from "./shared/components/Blackjack/Blackjack.tsx";
 
 function App() {
     const [showAllCards, setShowAllCards] = useState(true);
+    const [statsMenuVisibility, setStatsMenuVisibility] =
+        useState<boolean>(true);
 
     const toggleAllCards = () => setShowAllCards(!showAllCards);
+    const toggleStatsMenu = () => setStatsMenuVisibility(!statsMenuVisibility);
 
     return (
         <Grid container>
@@ -29,12 +32,18 @@ function App() {
                         <Settings
                             showAllCards={showAllCards}
                             toggleAllCards={toggleAllCards}
+                            statsMenuVisibility={statsMenuVisibility}
+                            toggleStatsMenu={toggleStatsMenu}
                         />
                     </Toolbar>
                 </AppBar>
             </Grid>
             <Grid container size={12} justifyContent={"center"}>
-                <Table game={<Blackjack />} />
+                <Table
+                    game={
+                        <Blackjack statsMenuVisibility={statsMenuVisibility} />
+                    }
+                />
             </Grid>
             {showAllCards && <AllCards />}
         </Grid>

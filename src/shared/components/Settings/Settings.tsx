@@ -8,7 +8,12 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 
-function Settings({ showAllCards, toggleAllCards }) {
+function Settings({
+    showAllCards,
+    toggleAllCards,
+    statsMenuVisibility,
+    toggleStatsMenu,
+}) {
     const [isVisible, setIsVisible] = useState(false);
 
     const toggleSettings = () => setIsVisible(!isVisible);
@@ -66,6 +71,20 @@ function Settings({ showAllCards, toggleAllCards }) {
                                         />
                                     }
                                     label="Show All Cards"
+                                    labelPlacement="start"
+                                />
+                            </FormGroup>
+                        </Grid>
+                        <Grid size={10}>
+                            <FormGroup>
+                                <FormControlLabel
+                                    control={
+                                        <Switch
+                                            checked={statsMenuVisibility}
+                                            onChange={toggleStatsMenu}
+                                        />
+                                    }
+                                    label="Show Statistics Menu"
                                     labelPlacement="start"
                                 />
                             </FormGroup>
