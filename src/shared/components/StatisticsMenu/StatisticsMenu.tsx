@@ -16,13 +16,13 @@ function StatisticsMenu(props: StatisticsMenuProps) {
     return (
         <Grid
             container
-            rowGap={1}
+            spacing={1}
             sx={{
                 padding: "15px",
                 borderRadius: "10px",
                 borderStyle: "solid",
                 borderColor: "primary.light",
-                width: "220px",
+                width: "250px",
                 opacity: Number(visible),
                 ...sx,
             }}
@@ -42,7 +42,11 @@ function StatisticsMenu(props: StatisticsMenuProps) {
                 />
             </Grid>
             <Grid size={8}>
-                <Typography variant={"h5"} sx={{ color: "primary.light" }}>
+                <Typography
+                    variant={"h6"}
+                    textAlign="right"
+                    sx={{ color: "primary.light" }}
+                >
                     Victories
                 </Typography>
             </Grid>
@@ -52,7 +56,11 @@ function StatisticsMenu(props: StatisticsMenuProps) {
                 </Typography>
             </Grid>
             <Grid size={8}>
-                <Typography variant={"h5"} sx={{ color: "primary.light" }}>
+                <Typography
+                    variant={"h6"}
+                    textAlign="right"
+                    sx={{ color: "primary.light" }}
+                >
                     Win Rate
                 </Typography>
             </Grid>
@@ -62,6 +70,20 @@ function StatisticsMenu(props: StatisticsMenuProps) {
                         ? Math.round((victories / totalGames) * 100)
                         : 0}
                     %
+                </Typography>
+            </Grid>
+            <Grid size={8}>
+                <Typography
+                    variant={"h6"}
+                    textAlign="right"
+                    sx={{ color: "primary.light" }}
+                >
+                    Games Played
+                </Typography>
+            </Grid>
+            <Grid size={4}>
+                <Typography variant={"h5"} sx={{ color: "primary.light" }}>
+                    {totalGames}
                 </Typography>
             </Grid>
         </Grid>
