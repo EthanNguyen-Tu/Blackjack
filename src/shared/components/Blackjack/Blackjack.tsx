@@ -6,10 +6,12 @@ import { HandOfCards } from "../PlayingCard/HandOfCards.ts";
 import { DeckOfCards } from "../PlayingCard/DeckOfCards.ts";
 import DecisionPanel from "../DecisionPanel/DecisionPanel.tsx";
 import StatisticsMenu from "../StatisticsMenu/StatisticsMenu.tsx";
+import { useGameContext } from "../../hooks/useGameContext.ts";
 
 function Blackjack({ statsMenuVisibility }) {
     const [dealerHand, setDealerHand] = useState<HandOfCards>();
     const [playerHand, setPlayerHand] = useState<HandOfCards>();
+    const { victories, totalGames } = useGameContext();
 
     const deck = new DeckOfCards();
 
@@ -35,8 +37,8 @@ function Blackjack({ statsMenuVisibility }) {
             />
             <StatisticsMenu
                 visible={statsMenuVisibility}
-                total_games={0}
-                victories={0}
+                total_games={totalGames}
+                victories={victories}
                 sx={{
                     position: "absolute",
                     top: "50px",

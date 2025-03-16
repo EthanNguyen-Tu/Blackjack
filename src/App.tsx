@@ -5,6 +5,7 @@ import AllCards from "./pages/AllCards.tsx";
 import { AppBar, Toolbar, Typography } from "@mui/material";
 import Table from "./shared/components/Table/Table.tsx";
 import Blackjack from "./shared/components/Blackjack/Blackjack.tsx";
+import { GameContextProvider } from "./shared/providers/GameContextProvider.tsx";
 
 function App() {
     const [showAllCards, setShowAllCards] = useState(true);
@@ -39,11 +40,15 @@ function App() {
                 </AppBar>
             </Grid>
             <Grid container size={12} justifyContent={"center"}>
-                <Table
-                    game={
-                        <Blackjack statsMenuVisibility={statsMenuVisibility} />
-                    }
-                />
+                <GameContextProvider>
+                    <Table
+                        game={
+                            <Blackjack
+                                statsMenuVisibility={statsMenuVisibility}
+                            />
+                        }
+                    />
+                </GameContextProvider>
             </Grid>
             {showAllCards && <AllCards />}
         </Grid>
