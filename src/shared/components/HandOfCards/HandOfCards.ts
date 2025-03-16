@@ -36,6 +36,10 @@ export class HandOfCards {
         return this.hand;
     }
 
+    public getHasAce() {
+        return this.hasAce;
+    }
+
     public addCard(card: string) {
         this.hand.push(card);
         this.value += this.getCardValue(card);
