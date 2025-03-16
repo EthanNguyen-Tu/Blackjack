@@ -1,20 +1,16 @@
 import { Button } from "@mui/material";
 import { Grid } from "@mui/system";
-import React from "react";
+import React, { useState } from "react";
 import "./DecisionPanel.css";
-import { HandOfCards } from "../PlayingCard/HandOfCards.ts";
+import { HandOfCards } from "../HandOfCards/HandOfCards.ts";
 import { DeckOfCards } from "../PlayingCard/DeckOfCards.ts";
 
 interface DecisionPanelProps {
     deck: DeckOfCards;
-    dealerHand?: HandOfCards;
-    playerHand?: HandOfCards;
-    setDealerHand: React.Dispatch<
-        React.SetStateAction<HandOfCards | undefined>
-    >;
-    setPlayerHand: React.Dispatch<
-        React.SetStateAction<HandOfCards | undefined>
-    >;
+    dealerHand: HandOfCards;
+    playerHand: HandOfCards;
+    setDealerHand: React.Dispatch<React.SetStateAction<string[]>>;
+    setPlayerHand: React.Dispatch<React.SetStateAction<string[]>>;
     sx?: Object;
 }
 
@@ -23,14 +19,17 @@ function DecisionPanel(props: DecisionPanelProps) {
         props;
 
     const handleStart = () => {
-        const hand1 = new HandOfCards();
-        const hand2 = new HandOfCards();
-        for (let i = 0; i < 6; i++) {
-            hand1.addCard(deck.drawCard());
-            hand2.addCard(deck.drawCard());
+        for (let i = 0; i < 2; i++) {
+            dealerHand.addCard(deck.drawCard());
+            playerHand.addCard(deck.drawCard());
         }
-        setDealerHand(hand1);
-        setPlayerHand(hand2);
+        setDealerHand([...dealerHand.getHand()]);
+        setPlayerHand([...playerHand.getHand()]);
+    };
+
+    const drawCard = () => {
+        playerHand.addCard(deck.drawCard());
+        setPlayerHand([...playerHand.getHand()]);
     };
 
     const logHandValues = () => {
@@ -55,12 +54,22 @@ function DecisionPanel(props: DecisionPanelProps) {
             justifyItems="center"
         >
             <Grid size={12}>
-                <Button
-                    onClick={handleStart}
-                    sx={{ color: "primary.contrastText" }}
-                >
-                    Start
-                </Button>
+                {(playerHand.getHand().length === 0 &&
+                    dealerHand.getHand().length === 0 && (
+                        <Button
+                            onClick={handleStart}
+                            sx={{ color: "primary.contrastText" }}
+                        >
+                            Start
+                        </Button>
+                    )) || (
+                    <Button
+                        onClick={drawCard}
+                        sx={{ color: "primary.contrastText" }}
+                    >
+                        Draw Card
+                    </Button>
+                )}
             </Grid>
             <Grid size={12}>
                 <Button
