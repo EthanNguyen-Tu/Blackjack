@@ -3,15 +3,25 @@ import { Grid } from "@mui/system";
 import React from "react";
 import "./DecisionPanel.css";
 import { HandOfCards } from "../PlayingCard/HandOfCards.ts";
+import { DeckOfCards } from "../PlayingCard/DeckOfCards.ts";
 
-function DecisionPanel({
-    deck,
-    dealerHand,
-    playerHand,
-    setDealerHand,
-    setPlayerHand,
-    sx,
-}) {
+interface DecisionPanelProps {
+    deck: DeckOfCards;
+    dealerHand?: HandOfCards;
+    playerHand?: HandOfCards;
+    setDealerHand: React.Dispatch<
+        React.SetStateAction<HandOfCards | undefined>
+    >;
+    setPlayerHand: React.Dispatch<
+        React.SetStateAction<HandOfCards | undefined>
+    >;
+    sx?: Object;
+}
+
+function DecisionPanel(props: DecisionPanelProps) {
+    const { deck, dealerHand, playerHand, setDealerHand, setPlayerHand, sx } =
+        props;
+
     const handleStart = () => {
         const hand1 = new HandOfCards();
         const hand2 = new HandOfCards();
@@ -37,7 +47,7 @@ function DecisionPanel({
                 borderRadius: "10px",
                 bgcolor: "primary.main",
                 borderStyle: "solid",
-                borderColor: "#340a0d",
+                borderColor: "primary.contrastText",
                 width: "200px",
                 ...sx,
             }}
