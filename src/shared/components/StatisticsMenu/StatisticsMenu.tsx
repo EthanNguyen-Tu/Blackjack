@@ -2,16 +2,16 @@ import { Typography } from "@mui/material";
 import { Grid, useTheme } from "@mui/system";
 import React from "react";
 import "./StatisticsMenu.css";
+import { useGameContext } from "../../hooks/useGameContext.ts";
 
 interface StatisticsMenuProps {
     visible: boolean;
-    total_games: number;
-    victories: number;
     sx?: Object;
 }
 
 function StatisticsMenu(props: StatisticsMenuProps) {
-    const { visible, total_games, victories, sx } = props;
+    const { visible, sx } = props;
+    const { victories, totalGames } = useGameContext();
     const theme = useTheme();
     return (
         <Grid
@@ -58,7 +58,10 @@ function StatisticsMenu(props: StatisticsMenuProps) {
             </Grid>
             <Grid size={4}>
                 <Typography variant={"h5"} sx={{ color: "primary.light" }}>
-                    {total_games ? Math.round(victories / total_games) : 0}%
+                    {totalGames
+                        ? Math.round((victories / totalGames) * 100)
+                        : 0}
+                    %
                 </Typography>
             </Grid>
         </Grid>
