@@ -1,45 +1,39 @@
 import { Button } from "@mui/material";
-import { Grid } from "@mui/system";
-import React, { useState } from "react";
+import { Stack } from "@mui/system";
+import React, { RefObject } from "react";
 import "./DecisionPanel.css";
-import { HandOfCards } from "../HandOfCards/HandOfCards.ts";
-import { DeckOfCards } from "../PlayingCard/DeckOfCards.ts";
+import { BlackjackState } from "../Blackjack/Blackjack.tsx";
 
 interface DecisionPanelProps {
-    deck: DeckOfCards;
-    dealerHand: HandOfCards;
-    playerHand: HandOfCards;
-    setDealerHand: React.Dispatch<React.SetStateAction<string[]>>;
-    setPlayerHand: React.Dispatch<React.SetStateAction<string[]>>;
+    gameState: RefObject<BlackjackState>;
+    evaluateGame: Function;
     sx?: Object;
 }
 
 function DecisionPanel(props: DecisionPanelProps) {
-    const { deck, dealerHand, playerHand, setDealerHand, setPlayerHand, sx } =
-        props;
+    const { gameState, evaluateGame, sx } = props;
 
     const handleStart = () => {
-        for (let i = 0; i < 2; i++) {
-            dealerHand.addCard(deck.drawCard());
-            playerHand.addCard(deck.drawCard());
-        }
-        setDealerHand([...dealerHand.getHand()]);
-        setPlayerHand([...playerHand.getHand()]);
+        evaluateGame();
     };
 
-    const drawCard = () => {
-        playerHand.addCard(deck.drawCard());
-        setPlayerHand([...playerHand.getHand()]);
+    const handleHit = () => {
+        gameState.current = BlackjackState.PLAYER_HIT;
+        evaluateGame();
     };
 
-    const logHandValues = () => {
-        console.log("Dealer Hand", dealerHand?.getHandValue());
-        console.log("Player Hand", playerHand?.getHandValue());
+    const handleStand = () => {
+        gameState.current = BlackjackState.DEALER_TURN;
+        evaluateGame();
+    };
+
+    const handleNextGame = () => {
+        gameState.current = BlackjackState.NEW_ROUND;
+        evaluateGame();
     };
 
     return (
-        <Grid
-            container
+        <Stack
             spacing={0}
             sx={{
                 padding: "15px",
@@ -53,33 +47,45 @@ function DecisionPanel(props: DecisionPanelProps) {
             alignItems="center"
             justifyItems="center"
         >
-            <Grid size={12}>
-                {(playerHand.getHand().length === 0 &&
-                    dealerHand.getHand().length === 0 && (
-                        <Button
-                            onClick={handleStart}
-                            sx={{ color: "primary.contrastText" }}
-                        >
-                            Start
-                        </Button>
-                    )) || (
-                    <Button
-                        onClick={drawCard}
-                        sx={{ color: "primary.contrastText" }}
-                    >
-                        Draw Card
-                    </Button>
-                )}
-            </Grid>
-            <Grid size={12}>
+            {(gameState.current === BlackjackState.START && (
                 <Button
-                    onClick={logHandValues}
-                    sx={{ color: "primary.contrastText" }}
+                    onClick={handleStart}
+                    sx={{ color: "primary.contrastText", width: "100%" }}
                 >
-                    Log Hand Values
+                    Start
                 </Button>
-            </Grid>
-        </Grid>
+            )) ||
+                (gameState.current === BlackjackState.END && (
+                    <Button
+                        onClick={handleNextGame}
+                        sx={{ color: "primary.contrastText", width: "100%" }}
+                    >
+                        Next Game
+                    </Button>
+                )) ||
+                (gameState.current === BlackjackState.PLAYER_TURN && (
+                    <Stack>
+                        <Button
+                            onClick={handleHit}
+                            sx={{
+                                color: "primary.contrastText",
+                                width: "100%",
+                            }}
+                        >
+                            Hit
+                        </Button>
+                        <Button
+                            onClick={handleStand}
+                            sx={{
+                                color: "primary.contrastText",
+                                width: "100%",
+                            }}
+                        >
+                            Stand
+                        </Button>
+                    </Stack>
+                ))}
+        </Stack>
     );
 }
 

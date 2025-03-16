@@ -6,11 +6,13 @@ import { AppBar, Toolbar, Typography } from "@mui/material";
 import Table from "./shared/components/Table/Table.tsx";
 import Blackjack from "./shared/components/Blackjack/Blackjack.tsx";
 import { GameContextProvider } from "./shared/providers/GameContextProvider.tsx";
+import { DeckOfCards } from "./shared/components/PlayingCard/DeckOfCards.ts";
 
 function App() {
     const [showAllCards, setShowAllCards] = useState(true);
     const [statsMenuVisibility, setStatsMenuVisibility] =
         useState<boolean>(true);
+    const [deck, setDeck] = useState(new DeckOfCards());
 
     const toggleAllCards = () => setShowAllCards(!showAllCards);
     const toggleStatsMenu = () => setStatsMenuVisibility(!statsMenuVisibility);
@@ -44,6 +46,7 @@ function App() {
                     <Table
                         game={
                             <Blackjack
+                                deck={deck}
                                 statsMenuVisibility={statsMenuVisibility}
                             />
                         }
