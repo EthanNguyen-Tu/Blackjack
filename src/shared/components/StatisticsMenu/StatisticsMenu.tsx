@@ -16,13 +16,13 @@ function StatisticsMenu(props: StatisticsMenuProps) {
     return (
         <Grid
             container
-            spacing={1}
+            rowGap={1}
             sx={{
                 padding: "15px",
                 borderRadius: "10px",
                 borderStyle: "solid",
                 borderColor: "primary.light",
-                width: "200px",
+                width: "220px",
                 opacity: Number(visible),
                 ...sx,
             }}
