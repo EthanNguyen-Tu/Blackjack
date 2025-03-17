@@ -38,6 +38,12 @@ function Blackjack(props: BlackjackProps) {
     const [dealerCards, setDealerCards] = useState<string[]>([]);
     const [playerCards, setPlayerCards] = useState<string[]>([]);
 
+    const hiddenDealerCard = [
+        BlackjackState.START,
+        BlackjackState.PLAYER_TURN,
+        BlackjackState.PLAYER_HIT,
+    ].includes(gameState.current);
+
     const clearCards = () => {
         console.log("Clearing Cards");
         dealerHand.clear();
@@ -154,6 +160,7 @@ function Blackjack(props: BlackjackProps) {
                 {dealerHand && (
                     <HandOfCardsDisplay
                         variant={HandOfCardsVariants.DEALER}
+                        flippedIndices={hiddenDealerCard ? [0] : []}
                         hand={dealerCards}
                     />
                 )}

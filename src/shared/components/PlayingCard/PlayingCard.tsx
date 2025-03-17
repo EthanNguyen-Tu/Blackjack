@@ -63,9 +63,25 @@ export const cards = [
     "2d",
 ];
 
-function PlayingCard({ card = "Ah", sx = {} }) {
+function PlayingCard({ card = "Ah", flipped = false, sx = {} }) {
     const cardValue = card.substring(0, card.length - 1);
     const cardStyle = styles[card[card.length - 1]];
+
+    if (flipped) {
+        return (
+            <div
+                className="playing-card"
+                style={{
+                    color: cardStyle.color,
+                    alignContent: "center",
+                    justifyItems: "center",
+                    ...sx,
+                }}
+            >
+                <div className="playing-card-back" />
+            </div>
+        );
+    }
 
     return (
         <div className="playing-card" style={{ color: cardStyle.color, ...sx }}>
