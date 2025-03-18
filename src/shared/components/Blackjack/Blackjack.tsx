@@ -123,6 +123,7 @@ function Blackjack(props: BlackjackProps) {
             case BlackjackState.NEW_ROUND:
                 clearCards();
                 gameState.current = BlackjackState.START;
+                evaluateGame();
         }
     };
 
@@ -134,15 +135,6 @@ function Blackjack(props: BlackjackProps) {
             alignItems="center"
             style={{ height: "85%" }}
         >
-            <DecisionPanel
-                gameState={gameState}
-                evaluateGame={evaluateGame}
-                sx={{
-                    position: "absolute",
-                    top: "50px",
-                    right: "clamp(50px, 10vw, 200px)",
-                }}
-            />
             <StatisticsMenu
                 visible={statsMenuVisibility}
                 sx={{
@@ -164,6 +156,17 @@ function Blackjack(props: BlackjackProps) {
                         hand={dealerCards}
                     />
                 )}
+            </Grid>
+            <Grid
+                container
+                size={12}
+                justifyContent="center"
+                alignItems="center"
+            >
+                <DecisionPanel
+                    gameState={gameState}
+                    evaluateGame={evaluateGame}
+                />
             </Grid>
             <Grid
                 container

@@ -42,6 +42,7 @@ function DecisionPanel(props: DecisionPanelProps) {
                 borderStyle: "solid",
                 borderColor: "primary.contrastText",
                 width: "200px",
+                zIndex: 500,
                 ...sx,
             }}
             alignItems="center"
