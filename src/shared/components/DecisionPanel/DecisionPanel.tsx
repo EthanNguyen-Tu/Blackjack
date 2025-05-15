@@ -13,6 +13,8 @@ interface DecisionPanelProps {
 function DecisionPanel(props: DecisionPanelProps) {
     const { gameState, evaluateGame, sx } = props;
 
+    const options: React.ReactNode[] = [];
+
     const handleStart = () => {
         evaluateGame();
     };
@@ -32,6 +34,56 @@ function DecisionPanel(props: DecisionPanelProps) {
         evaluateGame();
     };
 
+    switch (gameState.current) {
+        case BlackjackState.PLAYER_TURN:
+            options.push(
+                <Button
+                    onClick={handleHit}
+                    key={"Button-Hit"}
+                    sx={{
+                        color: "primary.contrastText",
+                        width: "100%",
+                    }}
+                >
+                    Hit
+                </Button>
+            );
+            options.push(
+                <Button
+                    onClick={handleStand}
+                    key={"Button-Stand"}
+                    sx={{
+                        color: "primary.contrastText",
+                        width: "100%",
+                    }}
+                >
+                    Stand
+                </Button>
+            );
+            break;
+        case BlackjackState.END:
+            options.push(
+                <Button
+                    onClick={handleNextGame}
+                    key={"Button-NextGame"}
+                    sx={{ color: "primary.contrastText", width: "100%" }}
+                >
+                    Next Game
+                </Button>
+            );
+            break;
+        default:
+            options.push(
+                <Button
+                    onClick={handleStart}
+                    key={"Button-Start"}
+                    sx={{ color: "primary.contrastText", width: "100%" }}
+                >
+                    Start
+                </Button>
+            );
+    }
+
     return (
         <Stack
             spacing={0}
@@ -48,44 +100,7 @@ function DecisionPanel(props: DecisionPanelProps) {
             alignItems="center"
             justifyItems="center"
         >
-            {(gameState.current === BlackjackState.START && (
-                <Button
-                    onClick={handleStart}
-                    sx={{ color: "primary.contrastText", width: "100%" }}
-                >
-                    Start
-                </Button>
-            )) ||
-                (gameState.current === BlackjackState.END && (
-                    <Button
-                        onClick={handleNextGame}
-                        sx={{ color: "primary.contrastText", width: "100%" }}
-                    >
-                        Next Game
-                    </Button>
-                )) ||
-                (gameState.current === BlackjackState.PLAYER_TURN && (
-                    <Stack>
-                        <Button
-                            onClick={handleHit}
-                            sx={{
-                                color: "primary.contrastText",
-                                width: "100%",
-                            }}
-                        >
-                            Hit
-                        </Button>
-                        <Button
-                            onClick={handleStand}
-                            sx={{
-                                color: "primary.contrastText",
-                                width: "100%",
-                            }}
-                        >
-                            Stand
-                        </Button>
-                    </Stack>
-                ))}
+            {options}
         </Stack>
     );
 }
