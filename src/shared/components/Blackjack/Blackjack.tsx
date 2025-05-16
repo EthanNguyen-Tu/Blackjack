@@ -89,7 +89,7 @@ function Blackjack(props: BlackjackProps) {
                 logHands();
                 break;
             case BlackjackState.CARD_REVEAL:
-                dealerHand.revealAll();
+                dealerHand.revealAll(true);
             // fall through
             case BlackjackState.DEALER_TURN:
                 setGameState(
@@ -175,7 +175,8 @@ function Blackjack(props: BlackjackProps) {
             >
                 {showHandSum && (
                     <Typography>
-                        Dealer Hand Value: {dealerHand.getVisibleValue()}
+                        Dealer Hand Visible Value:{" "}
+                        {dealerHand.getVisibleValue()}
                     </Typography>
                 )}
                 <DecisionPanel

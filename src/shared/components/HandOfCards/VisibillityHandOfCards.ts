@@ -68,7 +68,13 @@ export class VisibilityHandOfCards {
     }
 
     // @returns false if there are no cards to reveal, true otherwise
-    public revealAll(): boolean {
+    public revealAll(hiddenFirst: boolean = false): boolean {
+        if (hiddenFirst) {
+            [this.visibleCards, this.hiddenCards] = [
+                this.hiddenCards,
+                this.visibleCards,
+            ];
+        }
         let cards = this.hiddenCards.getHand();
         if (cards) {
             cards.forEach((card) => this.visibleCards.addCard(card));
