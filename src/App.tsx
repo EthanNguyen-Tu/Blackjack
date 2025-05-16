@@ -23,8 +23,14 @@ function App() {
             <Grid size={12}>
                 <AppBar position="static">
                     <Toolbar>
+                        <img
+                            src="/Blackjack/images/Nguyen-Tu_BlackjackLogo-192.png"
+                            width="50px"
+                            style={{ marginLeft: "20px" }}
+                            alt={"Ethan Nguyen-Tu's Blackjack Logo"}
+                        />
                         <Typography
-                            marginLeft="5%"
+                            marginLeft="20px"
                             fontSize={"3rem"}
                             sx={{
                                 flexGrow: 1,
