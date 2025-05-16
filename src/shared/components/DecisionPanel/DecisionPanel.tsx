@@ -39,6 +39,7 @@ function DecisionPanel(props: DecisionPanelProps) {
                     key={"Button-Hit"}
                     sx={{
                         color: "primary.contrastText",
+                        height: "50px",
                         width: "100%",
                     }}
                 >
@@ -51,6 +52,7 @@ function DecisionPanel(props: DecisionPanelProps) {
                     key={"Button-Stand"}
                     sx={{
                         color: "primary.contrastText",
+                        height: "50px",
                         width: "100%",
                     }}
                 >
@@ -63,7 +65,11 @@ function DecisionPanel(props: DecisionPanelProps) {
                 <Button
                     onClick={handleNextGame}
                     key={"Button-NextGame"}
-                    sx={{ color: "primary.contrastText", width: "100%" }}
+                    sx={{
+                        color: "primary.contrastText",
+                        height: "50px",
+                        width: "100%",
+                    }}
                 >
                     Next Game
                 </Button>
@@ -74,7 +80,11 @@ function DecisionPanel(props: DecisionPanelProps) {
                 <Button
                     onClick={handleStart}
                     key={"Button-Start"}
-                    sx={{ color: "primary.contrastText", width: "100%" }}
+                    sx={{
+                        color: "primary.contrastText",
+                        height: "50px",
+                        width: "100%",
+                    }}
                 >
                     Start
                 </Button>
@@ -85,12 +95,11 @@ function DecisionPanel(props: DecisionPanelProps) {
         <Stack
             spacing={0}
             sx={{
-                padding: "15px",
                 borderRadius: "10px",
                 bgcolor: "primary.main",
                 borderStyle: "solid",
                 borderColor: "primary.contrastText",
-                width: "200px",
+                width: "230px",
                 zIndex: 500,
                 ...sx,
             }}
