@@ -8,6 +8,8 @@ export const styles = {
     s: { icon: "\u2660", color: "black" },
 };
 
+export const CardRoyalty = "KQJ";
+
 export const cards = [
     "As",
     "Ks",

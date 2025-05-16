@@ -11,8 +11,10 @@ import Switch from "@mui/material/Switch";
 function Settings({
     showAllCards,
     toggleAllCards,
-    statsMenuVisibility,
+    showStatMenu,
     toggleStatsMenu,
+    showHandSum,
+    toggleHandSum,
 }) {
     const [isVisible, setIsVisible] = useState(false);
 
@@ -66,25 +68,31 @@ function Settings({
                                 <FormControlLabel
                                     control={
                                         <Switch
+                                            checked={showStatMenu}
+                                            onChange={toggleStatsMenu}
+                                        />
+                                    }
+                                    label="Show Statistics Menu"
+                                    labelPlacement="start"
+                                />
+                                <FormControlLabel
+                                    control={
+                                        <Switch
+                                            checked={showHandSum}
+                                            onChange={toggleHandSum}
+                                        />
+                                    }
+                                    label="Show Hand Sums"
+                                    labelPlacement="start"
+                                />
+                                <FormControlLabel
+                                    control={
+                                        <Switch
                                             checked={showAllCards}
                                             onChange={toggleAllCards}
                                         />
                                     }
                                     label="Show All Cards"
-                                    labelPlacement="start"
-                                />
-                            </FormGroup>
-                        </Grid>
-                        <Grid size={10}>
-                            <FormGroup>
-                                <FormControlLabel
-                                    control={
-                                        <Switch
-                                            checked={statsMenuVisibility}
-                                            onChange={toggleStatsMenu}
-                                        />
-                                    }
-                                    label="Show Statistics Menu"
                                     labelPlacement="start"
                                 />
                             </FormGroup>

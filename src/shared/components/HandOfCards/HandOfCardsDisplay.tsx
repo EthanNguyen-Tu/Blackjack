@@ -1,5 +1,7 @@
 import React from "react";
 import PlayingCard from "../PlayingCard/PlayingCard.tsx";
+import { VisibilityHandOfCards } from "./VisibillityHandOfCards.ts";
+import { HandOfCards } from "./HandOfCards.ts";
 
 export enum HandOfCardsVariants {
     PLAYER = "Player",
@@ -8,19 +10,51 @@ export enum HandOfCardsVariants {
 
 interface HandOfCardsProps {
     variant: HandOfCardsVariants;
-    hand: Array<string>;
-    flippedIndices?: Array<number>;
+    hand: HandOfCards | VisibilityHandOfCards;
 }
 
 function HandOfCardsDisplay(props: HandOfCardsProps) {
-    const { variant, hand, flippedIndices } = props;
+    const { variant, hand } = props;
     let cardCount = 0;
     const direction = variant === HandOfCardsVariants.DEALER ? 25 : -25;
 
-    return hand.map((card, idx) => (
+    if (hand instanceof VisibilityHandOfCards) {
+        let cards: React.ReactNode[] = [];
+        let idx = 0;
+        hand.getHiddenCards().forEach((card) => {
+            cards.push(
+                <PlayingCard
+                    card={card}
+                    flipped={true}
+                    sx={{
+                        zIndex: idx,
+                        marginLeft: "-75px",
+                        marginTop: direction * idx + "px",
+                    }}
+                    key={variant + "-" + card + "-" + cardCount}
+                />
+            );
+            idx += 1;
+        });
+        hand.getVisibleCards().forEach((card) => {
+            cards.push(
+                <PlayingCard
+                    card={card}
+                    sx={{
+                        zIndex: idx,
+                        marginLeft: "-75px",
+                        marginTop: direction * idx + "px",
+                    }}
+                    key={variant + "-" + card + "-" + cardCount}
+                />
+            );
+            idx += 1;
+        });
+        return cards;
+    }
+    return hand.getHand().map((card, idx) => (
         <PlayingCard
             card={card}
-            flipped={flippedIndices?.includes(idx)}
             sx={{
                 zIndex: idx,
                 marginLeft: "-75px",

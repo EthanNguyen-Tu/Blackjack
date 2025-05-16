@@ -10,12 +10,13 @@ import { DeckOfCards } from "./shared/components/PlayingCard/DeckOfCards.ts";
 
 function App() {
     const [showAllCards, setShowAllCards] = useState(true);
-    const [statsMenuVisibility, setStatsMenuVisibility] =
-        useState<boolean>(true);
+    const [showStatMenu, setShowStatMenu] = useState<boolean>(true);
+    const [showHandSum, setShowHandSum] = useState<boolean>(true);
     const [deck, setDeck] = useState(new DeckOfCards());
 
     const toggleAllCards = () => setShowAllCards(!showAllCards);
-    const toggleStatsMenu = () => setStatsMenuVisibility(!statsMenuVisibility);
+    const toggleStatsMenu = () => setShowStatMenu(!showStatMenu);
+    const toggleHandSum = () => setShowHandSum(!showHandSum);
 
     return (
         <Grid container>
@@ -35,8 +36,10 @@ function App() {
                         <Settings
                             showAllCards={showAllCards}
                             toggleAllCards={toggleAllCards}
-                            statsMenuVisibility={statsMenuVisibility}
+                            showStatMenu={showStatMenu}
                             toggleStatsMenu={toggleStatsMenu}
+                            showHandSum={showHandSum}
+                            toggleHandSum={toggleHandSum}
                         />
                     </Toolbar>
                 </AppBar>
@@ -47,7 +50,9 @@ function App() {
                         game={
                             <Blackjack
                                 deck={deck}
-                                statsMenuVisibility={statsMenuVisibility}
+                                showHandSum={showHandSum}
+                                showStatMenu={showStatMenu}
+                                soft17={false}
                             />
                         }
                     />

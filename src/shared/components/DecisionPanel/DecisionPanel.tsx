@@ -1,40 +1,37 @@
 import { Button } from "@mui/material";
 import { Stack } from "@mui/system";
-import React, { RefObject } from "react";
+import React from "react";
 import "./DecisionPanel.css";
 import { BlackjackState } from "../Blackjack/Blackjack.tsx";
 
 interface DecisionPanelProps {
-    gameState: RefObject<BlackjackState>;
-    evaluateGame: Function;
+    gameState: BlackjackState;
+    setGameState: Function;
     sx?: Object;
 }
 
 function DecisionPanel(props: DecisionPanelProps) {
-    const { gameState, evaluateGame, sx } = props;
+    const { gameState, setGameState, sx } = props;
 
     const options: React.ReactNode[] = [];
 
     const handleStart = () => {
-        evaluateGame();
+        setGameState(BlackjackState.START);
     };
 
     const handleHit = () => {
-        gameState.current = BlackjackState.PLAYER_HIT;
-        evaluateGame();
+        setGameState(BlackjackState.PLAYER_HIT);
     };
 
     const handleStand = () => {
-        gameState.current = BlackjackState.DEALER_TURN;
-        evaluateGame();
+        setGameState(BlackjackState.CARD_REVEAL);
     };
 
     const handleNextGame = () => {
-        gameState.current = BlackjackState.NEW_ROUND;
-        evaluateGame();
+        setGameState(BlackjackState.NEW_ROUND);
     };
 
-    switch (gameState.current) {
+    switch (gameState) {
         case BlackjackState.PLAYER_TURN:
             options.push(
                 <Button

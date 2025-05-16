@@ -1,6 +1,6 @@
 import { Grid } from "@mui/system";
 import "./Blackjack.css";
-import React, { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { HandOfCards } from "../HandOfCards/HandOfCards.ts";
 import DecisionPanel from "../DecisionPanel/DecisionPanel.tsx";
 import StatisticsMenu from "../StatisticsMenu/StatisticsMenu.tsx";
@@ -9,11 +9,14 @@ import HandOfCardsDisplay, {
     HandOfCardsVariants,
 } from "../HandOfCards/HandOfCardsDisplay.tsx";
 import { DeckOfCards } from "../PlayingCard/DeckOfCards.ts";
+import { Typography } from "@mui/material";
+import { VisibilityHandOfCards } from "../HandOfCards/VisibillityHandOfCards.ts";
 
 export enum BlackjackState {
     START = "Game Start",
     PLAYER_TURN = "Player's Turn",
     PLAYER_HIT = "Player Hits",
+    CARD_REVEAL = "Dealer Reveals Card",
     DEALER_TURN = "Dealer's Turn",
     DEALER_HIT = "Dealer Hits",
     END = "Game End",
@@ -22,110 +25,117 @@ export enum BlackjackState {
 
 interface BlackjackProps {
     deck: DeckOfCards;
-    statsMenuVisibility: boolean;
+    showStatMenu: boolean;
+    showHandSum: boolean;
     soft17: boolean;
 }
 
 function Blackjack(props: BlackjackProps) {
-    const { deck, statsMenuVisibility, soft17 } = props;
+    const { deck, showStatMenu, showHandSum, soft17 } = props;
     const { victories, totalGames, setVictories, setTotalGames } =
         useGameContext();
 
-    const dealerHand = useRef<HandOfCards>(new HandOfCards()).current;
+    const dealerHand = useRef<VisibilityHandOfCards>(
+        new VisibilityHandOfCards()
+    ).current;
     const playerHand = useRef<HandOfCards>(new HandOfCards()).current;
-    const gameState = useRef<BlackjackState>(BlackjackState.START);
+    const [gameState, setGameState] = useState<BlackjackState>(
+        BlackjackState.START
+    );
 
-    const [dealerCards, setDealerCards] = useState<string[]>([]);
-    const [playerCards, setPlayerCards] = useState<string[]>([]);
+    useEffect(() => {
+        console.log("Effect Ran");
+        const clearCards = () => {
+            console.log("Clearing Cards");
+            dealerHand.clear();
+            playerHand.clear();
+        };
 
-    const hiddenDealerCard = [
-        BlackjackState.START,
-        BlackjackState.PLAYER_TURN,
-        BlackjackState.PLAYER_HIT,
-    ].includes(gameState.current);
+        const logHands = () => {
+            console.log(
+                "Dealer Hand Visible Value:",
+                dealerHand.getVisibleValue(),
+                "\nPlayer Hand Value:",
+                playerHand.getHandValue()
+            );
+        };
 
-    const clearCards = () => {
-        console.log("Clearing Cards");
-        dealerHand.clear();
-        playerHand.clear();
-        setDealerCards([]);
-        setPlayerCards([]);
-    };
+        const checkPlayerVictory = (playerValue, dealerValue) =>
+            dealerValue > 21 ||
+            (playerValue <= 21 && playerValue > dealerValue);
 
-    const logHands = () => {
-        console.log(
-            "Dealer Hand Value:",
-            dealerHand.getHandValue(),
-            "\nPlayer Hand Value:",
-            playerHand.getHandValue()
-        );
-    };
+        const checkDealerDraws = (dealerValue) =>
+            soft17 && dealerHand.hasAce()
+                ? dealerValue <= 17
+                : dealerValue < 17;
 
-    const checkPlayerVictory = (playerValue, dealerValue) =>
-        dealerValue > 21 || (playerValue <= 21 && playerValue > dealerValue);
-
-    const checkDealerDraws = (dealerValue) =>
-        soft17 && dealerHand.getHasAce() ? dealerValue <= 17 : dealerValue < 17;
-
-    const evaluateGame = () => {
         console.log("\nEvaluating Game State:", gameState);
-        switch (gameState.current) {
+        switch (gameState) {
             case BlackjackState.START:
-                for (let i = 0; i < 2; i++) {
-                    dealerHand.addCard(deck.drawCard());
-                    playerHand.addCard(deck.drawCard());
-                }
-                setDealerCards([...dealerHand.getHand()]);
-                setPlayerCards([...playerHand.getHand()]);
-                gameState.current = BlackjackState.PLAYER_TURN;
+                dealerHand.addCard(deck.drawCard(), false);
+                dealerHand.addCard(deck.drawCard());
+                playerHand.addCard(deck.drawCard());
+                playerHand.addCard(deck.drawCard());
                 logHands();
+                setGameState(BlackjackState.PLAYER_TURN);
                 break;
             case BlackjackState.PLAYER_HIT:
                 playerHand.addCard(deck.drawCard());
-                setPlayerCards([...playerHand.getHand()]);
                 if (playerHand.getHandValue() > 21) {
-                    gameState.current = BlackjackState.END;
-                    evaluateGame();
+                    setGameState(BlackjackState.END);
                 } else {
-                    gameState.current = BlackjackState.PLAYER_TURN;
+                    setGameState(BlackjackState.PLAYER_TURN);
                 }
                 logHands();
                 break;
+            case BlackjackState.CARD_REVEAL:
+                dealerHand.revealAll();
+            // fall through
             case BlackjackState.DEALER_TURN:
-                gameState.current = checkDealerDraws(dealerHand.getHandValue())
-                    ? BlackjackState.DEALER_HIT
-                    : BlackjackState.END;
+                setGameState(
+                    checkDealerDraws(dealerHand.getHandValue())
+                        ? BlackjackState.DEALER_HIT
+                        : BlackjackState.END
+                );
                 logHands();
-                evaluateGame();
                 break;
             case BlackjackState.DEALER_HIT:
                 dealerHand.addCard(deck.drawCard());
-                setDealerCards([...dealerHand.getHand()]);
-                gameState.current = BlackjackState.DEALER_TURN;
+                setGameState(BlackjackState.DEALER_TURN);
                 logHands();
-                evaluateGame();
                 break;
             case BlackjackState.END:
                 if (setTotalGames && setVictories) {
-                    setTotalGames(totalGames + 1);
+                    logHands();
+                    return () => {
+                        setTotalGames(totalGames + 1);
 
-                    if (
-                        checkPlayerVictory(
-                            playerHand.getHandValue(),
-                            dealerHand.getHandValue()
-                        )
-                    ) {
-                        setVictories(victories + 1);
-                    }
+                        if (
+                            checkPlayerVictory(
+                                playerHand.getHandValue(),
+                                dealerHand.getHandValue()
+                            )
+                        ) {
+                            setVictories(victories + 1);
+                        }
+                    };
                 }
-                logHands();
                 break;
             case BlackjackState.NEW_ROUND:
                 clearCards();
-                gameState.current = BlackjackState.START;
-                evaluateGame();
+                setGameState(BlackjackState.START);
         }
-    };
+    }, [
+        dealerHand,
+        deck,
+        gameState,
+        playerHand,
+        setTotalGames,
+        setVictories,
+        soft17,
+        totalGames,
+        victories,
+    ]);
 
     return (
         <Grid
@@ -136,7 +146,7 @@ function Blackjack(props: BlackjackProps) {
             style={{ height: "85%" }}
         >
             <StatisticsMenu
-                visible={statsMenuVisibility}
+                visible={showStatMenu}
                 sx={{
                     position: "absolute",
                     top: "50px",
@@ -152,21 +162,31 @@ function Blackjack(props: BlackjackProps) {
                 {dealerHand && (
                     <HandOfCardsDisplay
                         variant={HandOfCardsVariants.DEALER}
-                        flippedIndices={hiddenDealerCard ? [0] : []}
-                        hand={dealerCards}
+                        hand={dealerHand}
                     />
                 )}
             </Grid>
             <Grid
                 container
                 size={12}
+                direction="column"
                 justifyContent="center"
                 alignItems="center"
             >
+                {showHandSum && (
+                    <Typography>
+                        Dealer Hand Value: {dealerHand.getVisibleValue()}
+                    </Typography>
+                )}
                 <DecisionPanel
                     gameState={gameState}
-                    evaluateGame={evaluateGame}
+                    setGameState={setGameState}
                 />
+                {showHandSum && (
+                    <Typography>
+                        Player Hand Value: {playerHand.getHandValue()}
+                    </Typography>
+                )}
             </Grid>
             <Grid
                 container
@@ -177,7 +197,7 @@ function Blackjack(props: BlackjackProps) {
                 {playerHand && (
                     <HandOfCardsDisplay
                         variant={HandOfCardsVariants.PLAYER}
-                        hand={playerCards}
+                        hand={playerHand}
                     />
                 )}
             </Grid>
