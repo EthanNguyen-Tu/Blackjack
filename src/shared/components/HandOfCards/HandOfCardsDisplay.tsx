@@ -16,7 +16,6 @@ interface HandOfCardsProps {
 function HandOfCardsDisplay(props: HandOfCardsProps) {
     const { variant, hand } = props;
     let cardCount = 0;
-    const direction = variant === HandOfCardsVariants.DEALER ? 25 : -25;
 
     if (hand instanceof VisibilityHandOfCards) {
         let cards: React.ReactNode[] = [];
@@ -29,7 +28,7 @@ function HandOfCardsDisplay(props: HandOfCardsProps) {
                     sx={{
                         zIndex: idx,
                         marginLeft: "-75px",
-                        marginTop: direction * idx + "px",
+                        marginTop: 25 * idx + "px",
                     }}
                     key={variant + "-" + card + "-" + cardCount}
                 />
@@ -43,7 +42,7 @@ function HandOfCardsDisplay(props: HandOfCardsProps) {
                     sx={{
                         zIndex: idx,
                         marginLeft: "-75px",
-                        marginTop: direction * idx + "px",
+                        marginTop: 25 * idx + "px",
                     }}
                     key={variant + "-" + card + "-" + cardCount}
                 />
@@ -58,7 +57,7 @@ function HandOfCardsDisplay(props: HandOfCardsProps) {
             sx={{
                 zIndex: idx,
                 marginLeft: "-75px",
-                marginTop: direction * idx + "px",
+                marginBottom: 25 * idx + "px",
             }}
             key={variant + "-" + card + "-" + cardCount}
         />

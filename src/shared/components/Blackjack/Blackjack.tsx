@@ -44,7 +44,6 @@ function Blackjack(props: BlackjackProps) {
     );
 
     useEffect(() => {
-        console.log("Effect Ran");
         const clearCards = () => {
             console.log("Clearing Cards");
             dealerHand.clear();
@@ -142,9 +141,9 @@ function Blackjack(props: BlackjackProps) {
         <Grid
             container
             direction="column"
-            justifyContent="space-between"
+            justifyContent="flex-start"
             alignItems="center"
-            style={{ height: "85%" }}
+            height="100%"
         >
             <StatisticsMenu
                 visible={showStatMenu}
@@ -158,7 +157,7 @@ function Blackjack(props: BlackjackProps) {
                 container
                 size={12}
                 justifyContent="center"
-                alignItems="center"
+                alignItems="flex-start"
             >
                 {dealerHand && (
                     <HandOfCardsDisplay
@@ -173,6 +172,7 @@ function Blackjack(props: BlackjackProps) {
                 direction="column"
                 justifyContent="center"
                 alignItems="center"
+                height="175px"
             >
                 {showHandSum && (
                     <Typography>
@@ -194,7 +194,7 @@ function Blackjack(props: BlackjackProps) {
                 container
                 size={12}
                 justifyContent="center"
-                alignItems="center"
+                alignItems="flex-end"
             >
                 {playerHand && (
                     <HandOfCardsDisplay
