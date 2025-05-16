@@ -82,6 +82,7 @@ function Blackjack(props: BlackjackProps) {
             case BlackjackState.PLAYER_HIT:
                 playerHand.addCard(deck.drawCard());
                 if (playerHand.getHandValue() > 21) {
+                    dealerHand.revealAll(true);
                     setGameState(BlackjackState.END);
                 } else {
                     setGameState(BlackjackState.PLAYER_TURN);
