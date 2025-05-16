@@ -158,6 +158,7 @@ function Blackjack(props: BlackjackProps) {
                 size={12}
                 justifyContent="center"
                 alignItems="flex-start"
+                paddingLeft="75px"
             >
                 {dealerHand && (
                     <HandOfCardsDisplay
@@ -195,6 +196,7 @@ function Blackjack(props: BlackjackProps) {
                 size={12}
                 justifyContent="center"
                 alignItems="flex-end"
+                paddingLeft="75px"
             >
                 {playerHand && (
                     <HandOfCardsDisplay
