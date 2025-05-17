@@ -12,11 +12,13 @@ function App() {
     const [showAllCards, setShowAllCards] = useState(true);
     const [showStatMenu, setShowStatMenu] = useState<boolean>(true);
     const [showHandSum, setShowHandSum] = useState<boolean>(true);
+    const [showCardsNotSeen, setShowCardsNotSeen] = useState<boolean>(true);
     const [deck, setDeck] = useState(new DeckOfCards());
 
     const toggleAllCards = () => setShowAllCards(!showAllCards);
     const toggleStatsMenu = () => setShowStatMenu(!showStatMenu);
     const toggleHandSum = () => setShowHandSum(!showHandSum);
+    const toggleCardsNotSeen = () => setShowCardsNotSeen(!showCardsNotSeen);
 
     return (
         <Grid container>
@@ -46,6 +48,8 @@ function App() {
                             toggleStatsMenu={toggleStatsMenu}
                             showHandSum={showHandSum}
                             toggleHandSum={toggleHandSum}
+                            showCardsNotSeen={showCardsNotSeen}
+                            toggleCardsNotSeen={toggleCardsNotSeen}
                         />
                     </Toolbar>
                 </AppBar>
@@ -58,6 +62,7 @@ function App() {
                                 deck={deck}
                                 showHandSum={showHandSum}
                                 showStatMenu={showStatMenu}
+                                showCardsNotSeen={showCardsNotSeen}
                                 soft17={false}
                             />
                         }

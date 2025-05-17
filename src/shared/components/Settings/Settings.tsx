@@ -15,6 +15,8 @@ function Settings({
     toggleStatsMenu,
     showHandSum,
     toggleHandSum,
+    showCardsNotSeen,
+    toggleCardsNotSeen,
 }) {
     const [isVisible, setIsVisible] = useState(false);
 
@@ -83,6 +85,16 @@ function Settings({
                                         />
                                     }
                                     label="Show Hand Sums"
+                                    labelPlacement="start"
+                                />
+                                <FormControlLabel
+                                    control={
+                                        <Switch
+                                            checked={showCardsNotSeen}
+                                            onChange={toggleCardsNotSeen}
+                                        />
+                                    }
+                                    label="Show Cards Not Seen"
                                     labelPlacement="start"
                                 />
                                 <FormControlLabel

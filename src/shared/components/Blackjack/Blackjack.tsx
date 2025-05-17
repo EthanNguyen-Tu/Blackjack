@@ -11,6 +11,7 @@ import HandOfCardsDisplay, {
 import { DeckOfCards } from "../PlayingCard/DeckOfCards.ts";
 import { Typography } from "@mui/material";
 import { VisibilityHandOfCards } from "../HandOfCards/VisibillityHandOfCards.ts";
+import DeckContentDisplay from "../DeckContentsDisplay/DeckContentsDisplay.tsx";
 
 export enum BlackjackState {
     START = "Game Start",
@@ -27,11 +28,12 @@ interface BlackjackProps {
     deck: DeckOfCards;
     showStatMenu: boolean;
     showHandSum: boolean;
+    showCardsNotSeen: boolean;
     soft17: boolean;
 }
 
 function Blackjack(props: BlackjackProps) {
-    const { deck, showStatMenu, showHandSum, soft17 } = props;
+    const { deck, showStatMenu, showHandSum, showCardsNotSeen, soft17 } = props;
     const { victories, totalGames, setVictories, setTotalGames } =
         useGameContext();
 
@@ -71,7 +73,7 @@ function Blackjack(props: BlackjackProps) {
         console.log("\nEvaluating Game State:", gameState);
         switch (gameState) {
             case BlackjackState.START:
-                dealerHand.addCard(deck.drawCard(), false);
+                dealerHand.addCard(deck.drawCard(true), false);
                 dealerHand.addCard(deck.drawCard());
                 playerHand.addCard(deck.drawCard());
                 playerHand.addCard(deck.drawCard());
@@ -89,6 +91,7 @@ function Blackjack(props: BlackjackProps) {
                 logHands();
                 break;
             case BlackjackState.CARD_REVEAL:
+                deck.countAll();
                 dealerHand.revealAll(true);
             // fall through
             case BlackjackState.DEALER_TURN:
@@ -153,6 +156,15 @@ function Blackjack(props: BlackjackProps) {
                     left: "clamp(50px, 10vw, 200px)",
                 }}
             />
+            {showCardsNotSeen && (
+                <DeckContentDisplay
+                    card_count={deck.getCardCount()}
+                    sx={{
+                        position: "absolute",
+                        right: "clamp(50px, 10vw, 200px)",
+                    }}
+                ></DeckContentDisplay>
+            )}
             <Grid
                 container
                 size={12}
