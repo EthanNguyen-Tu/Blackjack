@@ -148,14 +148,15 @@ function Blackjack(props: BlackjackProps) {
             alignItems="center"
             height="100%"
         >
-            <StatisticsMenu
-                visible={showStatMenu}
-                sx={{
-                    position: "absolute",
-                    top: "50px",
-                    left: "clamp(50px, 10vw, 200px)",
-                }}
-            />
+            {showStatMenu && (
+                <StatisticsMenu
+                    sx={{
+                        position: "absolute",
+                        top: "50px",
+                        left: "clamp(50px, 10vw, 200px)",
+                    }}
+                />
+            )}
             {showCardsNotSeen && (
                 <DeckContentDisplay
                     card_count={deck.getCardCount()}

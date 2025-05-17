@@ -1,16 +1,14 @@
 import { Typography } from "@mui/material";
 import { Grid, useTheme } from "@mui/system";
-import React from "react";
 import "./StatisticsMenu.css";
 import { useGameContext } from "../../hooks/useGameContext.ts";
 
 interface StatisticsMenuProps {
-    visible: boolean;
     sx?: Object;
 }
 
 function StatisticsMenu(props: StatisticsMenuProps) {
-    const { visible, sx } = props;
+    const { sx } = props;
     const { victories, totalGames } = useGameContext();
     const theme = useTheme();
     return (
@@ -23,7 +21,6 @@ function StatisticsMenu(props: StatisticsMenuProps) {
                 borderStyle: "solid",
                 borderColor: "primary.light",
                 width: "250px",
-                opacity: Number(visible),
                 ...sx,
             }}
             alignItems="center"
