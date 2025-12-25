@@ -1,0 +1,126 @@
+/* Standard Playing Card Size is 2.5 in x 3.5 in */
+.card {
+    width: 150px;
+    height: 210px;
+    background-color: white;
+    border: 5px solid #333;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    font-family: "Arial", sans-serif;
+    margin: 1%;
+}
+
+.back {
+    width: 130px;
+    height: 190px;
+    background-color: darkred;
+}
+
+.top {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    align-items: center;
+    top: 5%;
+    left: 5%;
+    font-weight: bold;
+    line-height: 0.8;
+}
+
+.center {
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    width: 70%;
+    height: 70%;
+    text-align: center;
+}
+
+.bottom {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    align-items: center;
+    bottom: 5%;
+    right: 5%;
+    rotate: 180deg;
+    font-weight: bold;
+    line-height: 0.8;
+}
+
+.playingCardText {
+    font-size: 2em;
+}
+
+.playingCardSymbol {
+    font-size: 8em;
+}
+
+.playingCardSymbolEdge {
+    font-size: 3em;
+}
+
+@media screen and (max-width: 600px) {
+    .playingCard {
+        width: 100px;
+        height: 140px;
+        background-color: white;
+        border: 3.33px solid #333;
+        border-radius: 10px;
+        box-shadow: 0 3.33px 6.66px rgba(0, 0, 0, 0.3);
+        position: relative;
+        font-family: "Arial", sans-serif;
+        margin: 1%;
+    }
+
+    .playingCardBack {
+        width: 86.66px;
+        height: 126.66px;
+        background-color: darkred;
+    }
+
+    .playingCardTop {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        align-items: center;
+        top: 5%;
+        left: 5%;
+        font-weight: bold;
+        line-height: 0.8;
+    }
+
+    .playingCardCenter {
+        position: absolute;
+        top: 15%;
+        left: 15%;
+        width: 70%;
+        height: 70%;
+        text-align: center;
+    }
+
+    .playingCardBottom {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        align-items: center;
+        bottom: 5%;
+        right: 5%;
+        rotate: 180deg;
+        font-weight: bold;
+        line-height: 0.8;
+    }
+
+    .playingCardText {
+        font-size: 1.33em;
+    }
+
+    .playingCardSymbol {
+        font-size: 5.33em;
+    }
+
+    .playingCardSymbolEdge {
+        font-size: 2em;
+    }
+}
