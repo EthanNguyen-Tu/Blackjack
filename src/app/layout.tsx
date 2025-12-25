@@ -18,6 +18,19 @@ export const metadata: Metadata = {
     description: "Blackjack React App by Ethan Nguyen-Tu",
     icons: {
         icon: "/images/Nguyen-Tu_BlackjackLogo.ico",
+        apple: "/images/Nguyen-Tu_BlackjackLogo-192.png",
+        other: [
+            {
+                rel: "icon",
+                url: "/images/Nguyen-Tu_BlackjackLogo-192.png",
+                sizes: "192x192",
+            },
+            {
+                rel: "icon",
+                url: "/images/Nguyen-Tu_BlackjackLogo-512.png",
+                sizes: "512x512",
+            },
+        ],
     },
 };
 
