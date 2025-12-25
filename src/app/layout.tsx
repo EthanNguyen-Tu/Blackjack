@@ -16,6 +16,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
     title: "Blackjack",
     description: "Blackjack React App by Ethan Nguyen-Tu",
+    icons: {
+        icon: "/images/Nguyen-Tu_BlackjackLogo.ico",
+    },
 };
 
 export default function RootLayout({
