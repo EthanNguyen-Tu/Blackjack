@@ -3,17 +3,17 @@
 import { Grid } from "@mui/system";
 import "./Blackjack.module.css";
 import { useEffect, useRef, useState } from "react";
-import { HandOfCards } from "@/app/shared/components/HandOfCards/HandOfCards";
-import DecisionPanel from "@/app/shared/ui/DecisionPanel/DecisionPanel";
-import StatisticsMenu from "@/app/shared/ui/StatisticsMenu/StatisticsMenu";
+import { HandOfCards } from "@/app/game/HandOfCards";
+import DecisionPanel from "@/app/ui/DecisionPanel/DecisionPanel";
+import StatisticsMenu from "@/app/ui/StatisticsMenu/StatisticsMenu";
 import { useGameContext } from "@/app/shared/hooks/useGameContext";
 import HandOfCardsDisplay, {
     HandOfCardsVariants,
-} from "@/app/shared/components/HandOfCards/HandOfCardsDisplay";
-import { DeckOfCards } from "@/app/shared/components/PlayingCard/DeckOfCards";
+} from "@/app/components/HandOfCards/HandOfCardsDisplay";
+import { DeckOfCards } from "@/app/game/DeckOfCards";
 import { Typography } from "@mui/material";
-import { VisibilityHandOfCards } from "@/app/shared/components/HandOfCards/VisibillityHandOfCards";
-import DeckContentDisplay from "@/app/shared/components/DeckContentsDisplay/DeckContentsDisplay";
+import { VisibilityHandOfCards } from "@/app/game/VisibillityHandOfCards";
+import DeckContentDisplay from "@/app/components/DeckContentsDisplay/DeckContentsDisplay";
 
 export enum BlackjackState {
     START = "Game Start",

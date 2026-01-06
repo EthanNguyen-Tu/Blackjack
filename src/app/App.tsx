@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 import { Grid } from "@mui/system";
-import Settings from "./shared/ui/Settings/Settings";
+import Settings from "@/app/ui/Settings/Settings";
 import AllCards from "./pages/AllCards";
 import { AppBar, Toolbar, Typography } from "@mui/material";
-import Table from "./shared/components/Table/Table";
-import Blackjack from "./shared/components/Blackjack/Blackjack";
+import Table from "@/app/shared/components/Table/Table";
+import Blackjack from "@/app/components/Blackjack/Blackjack";
 import { GameContextProvider } from "./shared/providers/GameContextProvider";
-import { DeckOfCards } from "./shared/components/PlayingCard/DeckOfCards";
+import { DeckOfCards } from "@/app/game/DeckOfCards";
 import Image from "next/image";
 
 function App() {
