@@ -4,9 +4,10 @@ import { Typography } from "@mui/material";
 import { Grid, useTheme } from "@mui/system";
 import "./StatisticsMenu.module.css";
 import { useGameContext } from "../../shared/hooks/useGameContext";
+import { SxProps, Theme } from "@mui/material/styles";
 
 interface StatisticsMenuProps {
-    sx?: Object;
+    sx?: SxProps<Theme>;
 }
 
 function StatisticsMenu(props: StatisticsMenuProps) {
@@ -17,14 +18,16 @@ function StatisticsMenu(props: StatisticsMenuProps) {
         <Grid
             container
             spacing={1}
-            sx={{
-                padding: "15px",
-                borderRadius: "10px",
-                borderStyle: "solid",
-                borderColor: "primary.light",
-                width: "250px",
-                ...sx,
-            }}
+            sx={[
+                {
+                    padding: "15px",
+                    borderRadius: "10px",
+                    borderStyle: "solid",
+                    borderColor: "primary.light",
+                    width: "250px",
+                },
+                ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
+            ]}
             alignItems="center"
             justifyItems="center"
         >
