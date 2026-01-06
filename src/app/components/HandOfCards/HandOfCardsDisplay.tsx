@@ -15,7 +15,6 @@ interface HandOfCardsProps {
 function HandOfCardsDisplay(props: HandOfCardsProps) {
     const { variant, hiddenCards, visibleCards } = props;
     const cardCount = 0;
-    console.log("hidden cards:", hiddenCards, "visible cards:", visibleCards);
 
     if (variant == HandOfCardsVariants.DEALER) {
         const cards: React.ReactNode[] = [];
