@@ -44,9 +44,11 @@ export class VisibilityHandOfCards {
     }
 
     public addCard(card: string, visible: boolean = true) {
-        visible
-            ? this.visibleCards.addCard(card)
-            : this.hiddenCards.addCard(card);
+        if (visible) {
+            this.visibleCards.addCard(card);
+        } else {
+            this.hiddenCards.addCard(card);
+        }
     }
 
     public hideCard(card: string): boolean {
