@@ -1,5 +1,5 @@
 import React from "react";
-import PlayingCard from "../PlayingCard/PlayingCard";
+import PlayingCard from "../../shared/components/PlayingCard/PlayingCard";
 
 export enum HandOfCardsVariants {
     PLAYER = "Player",

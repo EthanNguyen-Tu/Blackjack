@@ -3,7 +3,7 @@
 import { Typography } from "@mui/material";
 import { Grid, useTheme } from "@mui/system";
 import "./StatisticsMenu.module.css";
-import { useGameContext } from "../../hooks/useGameContext";
+import { useGameContext } from "../../shared/hooks/useGameContext";
 
 interface StatisticsMenuProps {
     sx?: Object;
