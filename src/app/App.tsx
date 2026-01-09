@@ -9,6 +9,7 @@ import Table from "@/app/shared/components/Table/Table";
 import Blackjack from "@/app/components/Blackjack/Blackjack";
 import { GameContextProvider } from "./shared/providers/GameContextProvider";
 import Image from "next/image";
+import { pathPrefix } from "../../next.config";
 
 function App() {
     const [showAllCards, setShowAllCards] = useState(true);
@@ -28,7 +29,7 @@ function App() {
                 <AppBar position="static">
                     <Toolbar>
                         <Image
-                            src="/images/Nguyen-Tu_BlackjackLogo-192.png"
+                            src={`${pathPrefix}/images/Nguyen-Tu_BlackjackLogo-192.png`}
                             width={50}
                             height={50}
                             style={{ marginLeft: "20px" }}
