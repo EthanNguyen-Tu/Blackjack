@@ -1,20 +1,31 @@
+import { SxProps, Theme } from "@mui/material/styles";
 import styles from "./PlayingCard.module.css";
 
-type cardStyle = {
+type CardStyle = {
     icon: string;
     color: string;
 };
 
-export const cardStyles: Record<string, cardStyle> = {
+export const cardStyles: Record<string, CardStyle> = {
     h: { icon: "\u2665", color: "red" },
     d: { icon: "\u2666", color: "red" },
     c: { icon: "\u2663", color: "black" },
     s: { icon: "\u2660", color: "black" },
 };
 
-function PlayingCard({ card = "Ah", flipped = false, sx = {} }) {
+interface PlayingCardProps {
+    card?: string;
+    flipped?: boolean;
+    sx?: SxProps<Theme>;
+}
+
+export default function PlayingCard({
+    card = "Ah",
+    flipped = false,
+    sx = {},
+}: PlayingCardProps) {
     const cardValue: string = card.substring(0, card.length - 1);
-    const cardStyle: cardStyle = cardStyles[card[card.length - 1]];
+    const cardStyle: CardStyle = cardStyles[card[card.length - 1]];
 
     if (flipped) {
         return (
@@ -55,5 +66,3 @@ function PlayingCard({ card = "Ah", flipped = false, sx = {} }) {
         </div>
     );
 }
-
-export default PlayingCard;
