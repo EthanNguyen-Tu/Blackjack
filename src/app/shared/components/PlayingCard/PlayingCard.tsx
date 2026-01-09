@@ -1,4 +1,3 @@
-import { SxProps, Theme } from "@mui/material/styles";
 import styles from "./PlayingCard.module.css";
 
 type CardStyle = {
@@ -16,7 +15,7 @@ export const cardStyles: Record<string, CardStyle> = {
 interface PlayingCardProps {
     card?: string;
     flipped?: boolean;
-    sx?: SxProps<Theme>;
+    sx?: object;
 }
 
 export default function PlayingCard({
