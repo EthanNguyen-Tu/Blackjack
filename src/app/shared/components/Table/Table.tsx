@@ -6,7 +6,7 @@ interface TableProps {
 }
 
 function Table({ game }: TableProps) {
-    return <div id={styles.table}>{game}</div>;
+    return <div className={styles.table}>{game}</div>;
 }
 
 export default Table;

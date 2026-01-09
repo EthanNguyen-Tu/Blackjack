@@ -1,7 +1,6 @@
 "use client";
 
 import { Grid } from "@mui/system";
-import "./Blackjack.module.css";
 import DecisionPanel from "@/app/ui/DecisionPanel/DecisionPanel";
 import StatisticsMenu from "@/app/ui/StatisticsMenu/StatisticsMenu";
 import HandOfCardsDisplay, {
