@@ -3,17 +3,17 @@
     "name": "Blackjack React App by Ethan Nguyen-Tu",
     "icons": [
         {
-            "src": "/Blackjack/images/Nguyen-Tu_BlackjackLogo.ico",
+            "src": "/images/Nguyen-Tu_BlackjackLogo.ico",
             "sizes": "64x64 32x32 24x24 16x16",
             "type": "/image/x-icon"
         },
         {
-            "src": "/Blackjack/images/Nguyen-Tu_BlackjackLogo-192.png",
+            "src": "/images/Nguyen-Tu_BlackjackLogo-192.png",
             "type": "image/png",
             "sizes": "192x192"
         },
         {
-            "src": "/Blackjack/images/Nguyen-Tu_BlackjackLogo-512.png",
+            "src": "/images/Nguyen-Tu_BlackjackLogo-512.png",
             "type": "image/png",
             "sizes": "512x512"
         }
@@ -23,4 +23,3 @@
     "theme_color": "#000000",
     "background_color": "#ffffff"
 }
-
