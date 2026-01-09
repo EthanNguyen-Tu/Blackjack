@@ -1,43 +1,29 @@
 "use client";
 
 import { Button, Stack } from "@mui/material";
-import React, { Dispatch, SetStateAction } from "react";
+import { ReactNode } from "react";
 import "./DecisionPanel.module.css";
-import { BlackjackState } from "../../components/Blackjack/Blackjack";
+import { BlackjackState } from "@/app/game/BlackjackReducer";
 import { SxProps, Theme } from "@mui/material/styles";
 
 interface DecisionPanelProps {
     gameState: BlackjackState;
-    setGameState: Dispatch<SetStateAction<BlackjackState>>;
+    onStart: () => void;
+    onHit: () => void;
+    onStand: () => void;
+    onNextGame: () => void;
     sx?: SxProps<Theme>;
 }
 
 function DecisionPanel(props: DecisionPanelProps) {
-    const { gameState, setGameState, sx } = props;
+    const { gameState, onStart, onHit, onStand, onNextGame, sx } = props;
 
-    const options: React.ReactNode[] = [];
-
-    const handleStart = () => {
-        setGameState(BlackjackState.START);
-    };
-
-    const handleHit = () => {
-        setGameState(BlackjackState.PLAYER_HIT);
-    };
-
-    const handleStand = () => {
-        setGameState(BlackjackState.CARD_REVEAL);
-    };
-
-    const handleNextGame = () => {
-        setGameState(BlackjackState.NEW_ROUND);
-    };
-
+    const options: ReactNode[] = [];
     switch (gameState) {
         case BlackjackState.PLAYER_TURN:
             options.push(
                 <Button
-                    onClick={handleHit}
+                    onClick={onHit}
                     key={"Button-Hit"}
                     sx={{
                         color: "primary.contrastText",
@@ -50,7 +36,7 @@ function DecisionPanel(props: DecisionPanelProps) {
             );
             options.push(
                 <Button
-                    onClick={handleStand}
+                    onClick={onStand}
                     key={"Button-Stand"}
                     sx={{
                         color: "primary.contrastText",
@@ -65,7 +51,7 @@ function DecisionPanel(props: DecisionPanelProps) {
         case BlackjackState.END:
             options.push(
                 <Button
-                    onClick={handleNextGame}
+                    onClick={onNextGame}
                     key={"Button-NextGame"}
                     sx={{
                         color: "primary.contrastText",
@@ -80,7 +66,7 @@ function DecisionPanel(props: DecisionPanelProps) {
         default:
             options.push(
                 <Button
-                    onClick={handleStart}
+                    onClick={onStart}
                     key={"Button-Start"}
                     sx={{
                         color: "primary.contrastText",

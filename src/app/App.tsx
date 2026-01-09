@@ -8,7 +8,6 @@ import { AppBar, Toolbar, Typography } from "@mui/material";
 import Table from "@/app/shared/components/Table/Table";
 import Blackjack from "@/app/components/Blackjack/Blackjack";
 import { GameContextProvider } from "./shared/providers/GameContextProvider";
-import { DeckOfCards } from "@/app/game/DeckOfCards";
 import Image from "next/image";
 
 function App() {
@@ -16,7 +15,7 @@ function App() {
     const [showStatMenu, setShowStatMenu] = useState<boolean>(true);
     const [showHandSum, setShowHandSum] = useState<boolean>(true);
     const [showCardsNotSeen, setShowCardsNotSeen] = useState<boolean>(true);
-    const [deck, setDeck] = useState(new DeckOfCards());
+    const [numOfDecks, setNumOfDecks] = useState<number>(1);
 
     const toggleAllCards = () => setShowAllCards(!showAllCards);
     const toggleStatsMenu = () => setShowStatMenu(!showStatMenu);
@@ -63,7 +62,7 @@ function App() {
                     <Table
                         game={
                             <Blackjack
-                                deck={deck}
+                                numberOfDecks={numOfDecks}
                                 showHandSum={showHandSum}
                                 showStatMenu={showStatMenu}
                                 showCardsNotSeen={showCardsNotSeen}
