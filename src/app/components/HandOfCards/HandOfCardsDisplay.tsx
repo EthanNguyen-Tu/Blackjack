@@ -29,7 +29,7 @@ function HandOfCardsDisplay(props: HandOfCardsProps) {
                         marginLeft: "-75px",
                         marginTop: 25 * idx + "px",
                     }}
-                    key={variant + "-" + card + "-" + cardCount}
+                    key={variant + "- Hidden -" + cardCount}
                 />
             );
             idx += 1;
