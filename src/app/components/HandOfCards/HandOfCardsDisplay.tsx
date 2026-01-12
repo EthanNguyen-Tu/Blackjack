@@ -14,39 +14,38 @@ interface HandOfCardsProps {
 
 function HandOfCardsDisplay(props: HandOfCardsProps) {
     const { variant, hiddenCards, visibleCards } = props;
-    const cardCount = 0;
 
-    if (variant == HandOfCardsVariants.DEALER) {
+    if (variant === HandOfCardsVariants.DEALER) {
         const cards: React.ReactNode[] = [];
-        let idx = 0;
+        let cardCount = 0;
         hiddenCards?.forEach((card) => {
             cards.push(
                 <PlayingCard
                     card={card}
                     flipped={true}
                     sx={{
-                        zIndex: idx,
+                        zIndex: cardCount,
                         marginLeft: "-75px",
-                        marginTop: 25 * idx + "px",
+                        marginTop: 25 * cardCount + "px",
                     }}
-                    key={variant + "- Hidden -" + cardCount}
+                    key={`${variant}-Hidden-${cardCount}`}
                 />
             );
-            idx += 1;
+            cardCount += 1;
         });
         visibleCards?.forEach((card) => {
             cards.push(
                 <PlayingCard
                     card={card}
                     sx={{
-                        zIndex: idx,
+                        zIndex: cardCount,
                         marginLeft: "-75px",
-                        marginTop: 25 * idx + "px",
+                        marginTop: 25 * cardCount + "px",
                     }}
-                    key={variant + "-" + card + "-" + cardCount}
+                    key={`${variant}-${card}-${cardCount}`}
                 />
             );
-            idx += 1;
+            cardCount += 1;
         });
         return cards;
     }
@@ -58,7 +57,7 @@ function HandOfCardsDisplay(props: HandOfCardsProps) {
                 marginLeft: "-75px",
                 marginBottom: 25 * idx + "px",
             }}
-            key={variant + "-" + card + "-" + cardCount}
+            key={`${variant}-${card}-${idx}`}
         />
     ));
 }
