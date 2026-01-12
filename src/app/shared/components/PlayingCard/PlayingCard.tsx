@@ -45,20 +45,15 @@ export default function PlayingCard({
     return (
         <div className={styles.card} style={{ color: cardStyle.color, ...sx }}>
             <div className={styles.top}>
-                <span className={styles.playingCardText}>{cardValue}</span>
-                <span className={styles.playingCardSymbolEdge}>
-                    {cardStyle.icon}
-                </span>
+                <span className={styles.text}>{cardValue}</span>
+                <span className={styles.edgeSymbol}>{cardStyle.icon}</span>
             </div>
             <div className={styles.center}>
-                <div className={styles.playingCardSymbol}>{cardStyle.icon}</div>
+                <div className={styles.symbol}>{cardStyle.icon}</div>
             </div>
             <div className={styles.bottom}>
-                <span className={styles.playingCardText}>{cardValue}</span>
-                <span
-                    className={styles.playingCardSymbolEdge}
-                    color={cardStyle.color}
-                >
+                <span className={styles.text}>{cardValue}</span>
+                <span className={styles.edgeSymbol} color={cardStyle.color}>
                     {cardStyle.icon}
                 </span>
             </div>
