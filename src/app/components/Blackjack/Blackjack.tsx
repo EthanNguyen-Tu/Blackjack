@@ -37,7 +37,6 @@ function Blackjack(props: BlackjackProps) {
             direction="column"
             justifyContent="flex-start"
             alignItems="center"
-            height="100%"
         >
             {showStatMenu && (
                 <StatisticsMenu
