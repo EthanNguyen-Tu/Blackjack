@@ -53,9 +53,7 @@ export default function PlayingCard({
             </div>
             <div className={styles.bottom}>
                 <span className={styles.text}>{cardValue}</span>
-                <span className={styles.edgeSymbol} color={cardStyle.color}>
-                    {cardStyle.icon}
-                </span>
+                <span className={styles.edgeSymbol}>{cardStyle.icon}</span>
             </div>
         </div>
     );
