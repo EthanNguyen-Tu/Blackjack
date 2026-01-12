@@ -6,8 +6,8 @@ import { PLAYINGCARD_VALUES } from "../shared/constants/playingcards";
 
 function AllCards() {
     return (
-        <Grid container>
-            <Grid container size={12}>
+        <Grid container margin={4}>
+            <Grid container size={12} spacing={2}>
                 {PLAYINGCARD_VALUES.map((card) => (
                     <PlayingCard card={card} key={card} />
                 ))}
