@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import styles from "./Settings.module.css";
 import { IconButton, TextField, Typography } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -132,6 +132,7 @@ function Settings({
                                                         textAlign: "right",
                                                     },
                                                     min: 1,
+                                                    max: 8,
                                                 },
                                             }}
                                         />
