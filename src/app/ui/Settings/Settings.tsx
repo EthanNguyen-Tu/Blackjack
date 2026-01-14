@@ -19,6 +19,8 @@ interface SettingsProps {
     toggleHandSum: () => void;
     showCardsNotSeen: boolean;
     toggleCardsNotSeen: () => void;
+    soft17: boolean;
+    toggleSoft17: () => void;
 }
 
 function Settings({
@@ -30,6 +32,8 @@ function Settings({
     toggleHandSum,
     showCardsNotSeen,
     toggleCardsNotSeen,
+    soft17,
+    toggleSoft17,
 }: SettingsProps) {
     const [isVisible, setIsVisible] = useState(false);
 
@@ -56,7 +60,7 @@ function Settings({
                         sx={{
                             padding: "15px",
                             borderRadius: "10px",
-                            width: "300px",
+                            width: "350px",
                             bgcolor: "primary.main",
                         }}
                     >
@@ -108,6 +112,16 @@ function Settings({
                                         />
                                     }
                                     label="Show Cards Not Seen"
+                                    labelPlacement="start"
+                                />
+                                <FormControlLabel
+                                    control={
+                                        <Switch
+                                            checked={soft17}
+                                            onChange={toggleSoft17}
+                                        />
+                                    }
+                                    label="Dealer Hits on Soft 17"
                                     labelPlacement="start"
                                 />
                                 <FormControlLabel

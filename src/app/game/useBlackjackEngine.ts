@@ -1,4 +1,4 @@
-import { useCallback, useReducer, useRef } from "react";
+import { useCallback, useEffect, useReducer, useRef } from "react";
 import BlackjackEngine from "./BlackjackEngine";
 import BlackjackGameReducer, {
     initialBlackjackGameState,
@@ -15,75 +15,94 @@ export default function useBlackjackEngine(
         initialBlackjackGameState
     );
     const engineRef = useRef<BlackjackEngine>(
-        new BlackjackEngine(numberOfDecks, soft17)
+        null as unknown as BlackjackEngine
     );
-    const engine = engineRef.current;
+
+    useEffect(() => {
+        engineRef.current = new BlackjackEngine(1, false);
+    }, []);
+
+    useEffect(() => {
+        engineRef.current?.setSoft17(soft17);
+    }, [soft17]);
 
     const start = useCallback(() => {
-        engine.initRound();
+        engineRef.current.initRound();
         dispatch({
             type: "START",
             payload: {
-                dealerHandValue: engine.getDealerVisibleHandValue(),
-                playerHandValue: engine.getPlayerHandValue(),
-                playerCards: [...engine.getPlayerCards()],
-                dealerVisibleCards: [...engine.getDealerVisibleCards()],
-                dealerHiddenCards: [...engine.getDealerHiddenCards()],
-                cardCount: { ...engine.getCardCount() },
+                dealerHandValue: engineRef.current.getDealerVisibleHandValue(),
+                playerHandValue: engineRef.current.getPlayerHandValue(),
+                playerCards: [...engineRef.current.getPlayerCards()],
+                dealerVisibleCards: [
+                    ...engineRef.current.getDealerVisibleCards(),
+                ],
+                dealerHiddenCards: [
+                    ...engineRef.current.getDealerHiddenCards(),
+                ],
+                cardCount: { ...engineRef.current.getCardCount() },
             },
         });
-    }, [engine]);
+    }, []);
 
     const endGame = useCallback(() => {
-        if (engine.checkPlayerWins()) {
+        if (engineRef.current.checkPlayerWins()) {
             setVictories((v) => v + 1);
         }
         setTotalGames((t) => t + 1);
         dispatch({
             type: "END_GAME",
             payload: {
-                dealerHandValue: engine.getDealerVisibleHandValue(),
-                playerHandValue: engine.getPlayerHandValue(),
-                playerCards: [...engine.getPlayerCards()],
-                dealerVisibleCards: [...engine.getDealerVisibleCards()],
-                dealerHiddenCards: [...engine.getDealerHiddenCards()],
-                cardCount: { ...engine.getCardCount() },
+                dealerHandValue: engineRef.current.getDealerVisibleHandValue(),
+                playerHandValue: engineRef.current.getPlayerHandValue(),
+                playerCards: [...engineRef.current.getPlayerCards()],
+                dealerVisibleCards: [
+                    ...engineRef.current.getDealerVisibleCards(),
+                ],
+                dealerHiddenCards: [
+                    ...engineRef.current.getDealerHiddenCards(),
+                ],
+                cardCount: { ...engineRef.current.getCardCount() },
             },
         });
-    }, [engine, setTotalGames, setVictories]);
+    }, [setTotalGames, setVictories]);
 
     const hit = useCallback(() => {
-        engine.playerHit();
+        engineRef.current.playerHit();
         const snapshot = {
-            playerHandValue: engine.getPlayerHandValue(),
-            playerCards: [...engine.getPlayerCards()],
-            cardCount: { ...engine.getCardCount() },
+            playerHandValue: engineRef.current.getPlayerHandValue(),
+            playerCards: [...engineRef.current.getPlayerCards()],
+            cardCount: { ...engineRef.current.getCardCount() },
         };
-        if (engine.checkPlayerBust()) {
-            engine.revealDealer();
+        if (engineRef.current.checkPlayerBust()) {
+            engineRef.current.revealDealer();
             endGame();
         } else {
             dispatch({ type: "PLAYER_HIT", payload: snapshot });
         }
-    }, [engine, endGame]);
+    }, [endGame]);
 
     const stand = useCallback(() => {
-        engine.revealDealer();
+        engineRef.current.revealDealer();
         dispatch({
             type: "PLAYER_STAND",
             payload: {
-                dealerHandValue: engine.getDealerVisibleHandValue(),
-                dealerVisibleCards: [...engine.getDealerVisibleCards()],
-                dealerHiddenCards: [...engine.getDealerHiddenCards()],
-                cardCount: { ...engine.getCardCount() },
+                dealerHandValue: engineRef.current.getDealerVisibleHandValue(),
+                dealerVisibleCards: [
+                    ...engineRef.current.getDealerVisibleCards(),
+                ],
+                dealerHiddenCards: [
+                    ...engineRef.current.getDealerHiddenCards(),
+                ],
+                cardCount: { ...engineRef.current.getCardCount() },
             },
         });
 
-        while (engine.shouldDealerDraw()) {
-            engine.dealerHit();
+        while (engineRef.current.shouldDealerDraw()) {
+            engineRef.current.dealerHit();
         }
         endGame();
-    }, [engine, endGame]);
+    }, [endGame]);
 
     return {
         state,

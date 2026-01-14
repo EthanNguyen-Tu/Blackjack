@@ -13,17 +13,17 @@ export default class BlackjackEngine {
         this.soft17 = soft17;
     }
 
-    public reset() {
+    public reset(): void {
         this.clearHands();
         this.decks.reshuffle();
     }
 
-    public clearHands() {
+    public clearHands(): void {
         this.dealer.clear();
         this.player.clear();
     }
 
-    public initRound() {
+    public initRound(): void {
         this.clearHands();
         this.dealer.addCard(this.decks.drawCard(true), false);
         this.dealer.addCard(this.decks.drawCard());
@@ -31,27 +31,27 @@ export default class BlackjackEngine {
         this.player.addCard(this.decks.drawCard());
     }
 
-    public playerHit() {
+    public playerHit(): void {
         this.player.addCard(this.decks.drawCard());
     }
 
-    public dealerHit() {
+    public dealerHit(): void {
         this.dealer.addCard(this.decks.drawCard());
     }
 
-    public revealDealer() {
+    public revealDealer(): void {
         this.decks.countAll();
         this.dealer.revealAll(true);
     }
 
-    public shouldDealerDraw() {
+    public shouldDealerDraw(): boolean {
         const handValue = this.dealer.getHandValue();
         return this.soft17 && this.dealer.hasAce()
             ? handValue <= 17
             : handValue < 17;
     }
 
-    public checkPlayerWins() {
+    public checkPlayerWins(): boolean {
         const playerHandValue = this.player.getHandValue();
         const dealerHandValue = this.dealer.getHandValue();
         return (
@@ -60,35 +60,39 @@ export default class BlackjackEngine {
         );
     }
 
-    public checkDealerBust() {
+    public checkDealerBust(): boolean {
         return this.dealer.getHandValue() > 21;
     }
 
-    public checkPlayerBust() {
+    public checkPlayerBust(): boolean {
         return this.player.getHandValue() > 21;
     }
 
-    public getDealerHiddenCards() {
+    public getDealerHiddenCards(): string[] {
         return this.dealer.getHiddenCards();
     }
 
-    public getDealerVisibleCards() {
+    public getDealerVisibleCards(): string[] {
         return this.dealer.getVisibleCards();
     }
 
-    public getPlayerCards() {
+    public getPlayerCards(): string[] {
         return this.player.getHand();
     }
 
-    public getDealerVisibleHandValue() {
+    public getDealerVisibleHandValue(): number {
         return this.dealer.getVisibleValue();
     }
 
-    public getPlayerHandValue() {
+    public getPlayerHandValue(): number {
         return this.player.getHandValue();
     }
 
-    public getCardCount() {
+    public getCardCount(): { [key: string]: number } {
         return this.decks.getCardCount();
+    }
+
+    public setSoft17(soft17: boolean): void {
+        this.soft17 = soft17;
     }
 }
