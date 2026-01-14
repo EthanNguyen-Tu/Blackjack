@@ -150,6 +150,13 @@ describe("BlackjackEngine with soft17=true", () => {
         expect(engine.getPlayerHandValue()).toBe(18);
         expect(engine.getCardCount()).toBe(cardCount);
     });
+
+    it("modifies the number of decks correctly", () => {
+        engine.setNumberOfDecks(3);
+
+        expect(deckMock.reshuffle).toHaveBeenCalled();
+        expect(deckMock.setNumberOfDecks).toHaveBeenCalledWith(3);
+    });
 });
 
 describe("BlackjackEngine with soft17=false", () => {
