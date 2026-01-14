@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Grid } from "@mui/system";
 import Settings from "@/app/ui/Settings/Settings";
 import AllCards from "./pages/AllCards";
@@ -24,6 +24,22 @@ function App() {
     const toggleHandSum = () => setShowHandSum(!showHandSum);
     const toggleCardsNotSeen = () => setShowCardsNotSeen(!showCardsNotSeen);
     const toggleSoft17 = () => setSoft17(!soft17);
+    const handleNumOfDecksChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.value;
+        if (value === "") {
+            setNumOfDecks(1);
+            return;
+        }
+
+        const parsedNum = Number(value);
+        if (Number.isNaN(parsedNum) || parsedNum < 1) {
+            setNumOfDecks(1);
+        } else if (parsedNum > 8) {
+            setNumOfDecks(8);
+        } else {
+            setNumOfDecks(parsedNum);
+        }
+    };
 
     return (
         <Grid container sx={{ bgcolor: "background.default" }}>
@@ -58,6 +74,8 @@ function App() {
                             toggleCardsNotSeen={toggleCardsNotSeen}
                             soft17={soft17}
                             toggleSoft17={toggleSoft17}
+                            numOfDecks={numOfDecks}
+                            handleNumOfDecksChange={handleNumOfDecksChange}
                         />
                     </Toolbar>
                 </AppBar>

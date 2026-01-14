@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import styles from "./Settings.module.css";
-import { IconButton, Typography } from "@mui/material";
+import { IconButton, TextField, Typography } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import CloseIcon from "@mui/icons-material/Close";
 import { Grid } from "@mui/system";
@@ -21,6 +21,8 @@ interface SettingsProps {
     toggleCardsNotSeen: () => void;
     soft17: boolean;
     toggleSoft17: () => void;
+    numOfDecks: number;
+    handleNumOfDecksChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 function Settings({
@@ -34,6 +36,8 @@ function Settings({
     toggleCardsNotSeen,
     soft17,
     toggleSoft17,
+    numOfDecks,
+    handleNumOfDecksChange,
 }: SettingsProps) {
     const [isVisible, setIsVisible] = useState(false);
 
@@ -112,6 +116,28 @@ function Settings({
                                         />
                                     }
                                     label="Show Cards Not Seen"
+                                    labelPlacement="start"
+                                />
+                                <FormControlLabel
+                                    control={
+                                        <TextField
+                                            type="number"
+                                            required={true}
+                                            value={numOfDecks}
+                                            onChange={handleNumOfDecksChange}
+                                            sx={{ width: 80, ml: 1 }}
+                                            slotProps={{
+                                                htmlInput: {
+                                                    style: {
+                                                        textAlign: "right",
+                                                    },
+                                                    min: 1,
+                                                    max: 8,
+                                                },
+                                            }}
+                                        />
+                                    }
+                                    label="Number of Decks"
                                     labelPlacement="start"
                                 />
                                 <FormControlLabel

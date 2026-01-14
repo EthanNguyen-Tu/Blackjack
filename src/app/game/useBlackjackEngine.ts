@@ -26,6 +26,19 @@ export default function useBlackjackEngine(
         engineRef.current?.setSoft17(soft17);
     }, [soft17]);
 
+    useEffect(() => {
+        if (!engineRef.current) {
+            return;
+        }
+        engineRef.current.setNumberOfDecks(numberOfDecks);
+        dispatch({
+            type: "SYNC",
+            payload: {
+                cardCount: { ...engineRef.current.getCardCount() },
+            },
+        });
+    }, [numberOfDecks]);
+
     const start = useCallback(() => {
         engineRef.current.initRound();
         dispatch({

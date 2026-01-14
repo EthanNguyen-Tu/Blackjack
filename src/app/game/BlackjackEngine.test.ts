@@ -150,6 +150,24 @@ describe("BlackjackEngine with soft17=true", () => {
         expect(engine.getPlayerHandValue()).toBe(18);
         expect(engine.getCardCount()).toBe(cardCount);
     });
+
+    describe("setNumberOfDecks", () => {
+        it("reshuffles if setNumberOfDecks succeeds", () => {
+            deckMock.setNumberOfDecks.mockReturnValue(true);
+            engine.setNumberOfDecks(3);
+
+            expect(deckMock.setNumberOfDecks).toHaveBeenCalledWith(3);
+            expect(deckMock.reshuffle).toHaveBeenCalled();
+        });
+
+        it("does not reshuffle if setNumberOfDecks fails", () => {
+            deckMock.setNumberOfDecks.mockReturnValue(false);
+            engine.setNumberOfDecks(0);
+
+            expect(deckMock.setNumberOfDecks).toHaveBeenCalledWith(0);
+            expect(deckMock.reshuffle).not.toHaveBeenCalled();
+        });
+    });
 });
 
 describe("BlackjackEngine with soft17=false", () => {

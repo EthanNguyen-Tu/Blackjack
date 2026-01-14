@@ -20,7 +20,8 @@ type BlackjackAction =
     | { type: "PLAYER_HIT"; payload?: Partial<BlackjackGameState> }
     | { type: "PLAYER_STAND"; payload?: Partial<BlackjackGameState> }
     | { type: "DEALER_HIT"; payload?: Partial<BlackjackGameState> }
-    | { type: "END_GAME"; payload?: Partial<BlackjackGameState> };
+    | { type: "END_GAME"; payload?: Partial<BlackjackGameState> }
+    | { type: "SYNC"; payload?: Partial<BlackjackGameState> };
 
 export const initialBlackjackGameState: BlackjackGameState = {
     gameState: BlackjackState.START,
@@ -66,6 +67,11 @@ export default function BlackjackGameReducer(
                 ...state,
                 ...action.payload,
                 gameState: BlackjackState.END,
+            };
+        case "SYNC":
+            return {
+                ...state,
+                ...action.payload,
             };
         default:
             return state;
