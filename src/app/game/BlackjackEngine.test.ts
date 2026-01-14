@@ -9,7 +9,7 @@ jest.mock("./VisibilityHandOfCards");
 
 const mockCard: string = "10h";
 
-describe("BlackjackEngine", () => {
+describe("BlackjackEngine with soft17=true", () => {
     let engine: BlackjackEngine;
     let deckMock: jest.Mocked<DeckOfCards>;
     let playerMock: jest.Mocked<HandOfCards>;
@@ -78,7 +78,7 @@ describe("BlackjackEngine", () => {
     });
 
     describe("shouldDealerDraw", () => {
-        it("draws on soft 17 when soft17 rule is enabled", () => {
+        it("draws on soft 17", () => {
             dealerMock.getHandValue.mockReturnValue(17);
             dealerMock.hasAce.mockReturnValue(true);
 
@@ -149,5 +149,40 @@ describe("BlackjackEngine", () => {
         expect(engine.getDealerVisibleHandValue()).toBe(10);
         expect(engine.getPlayerHandValue()).toBe(18);
         expect(engine.getCardCount()).toBe(cardCount);
+    });
+});
+
+describe("BlackjackEngine with soft17=false", () => {
+    let engine: BlackjackEngine;
+    let dealerMock: jest.Mocked<VisibilityHandOfCards>;
+
+    beforeEach(() => {
+        jest.clearAllMocks();
+        engine = new BlackjackEngine(1, false);
+
+        dealerMock = (VisibilityHandOfCards as jest.Mock).mock
+            .instances[0] as jest.Mocked<VisibilityHandOfCards>;
+    });
+
+    describe("shouldDealerDraw", () => {
+        it("stands on soft 17", () => {
+            dealerMock.getHandValue.mockReturnValue(17);
+            dealerMock.hasAce.mockReturnValue(true);
+
+            expect(engine.shouldDealerDraw()).toBe(false);
+        });
+
+        it("stands on hard 17", () => {
+            dealerMock.getHandValue.mockReturnValue(17);
+            dealerMock.hasAce.mockReturnValue(false);
+
+            expect(engine.shouldDealerDraw()).toBe(false);
+        });
+
+        it("draws below 17", () => {
+            dealerMock.getHandValue.mockReturnValue(16);
+
+            expect(engine.shouldDealerDraw()).toBe(true);
+        });
     });
 });
