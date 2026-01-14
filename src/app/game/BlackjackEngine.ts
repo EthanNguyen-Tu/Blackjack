@@ -91,4 +91,8 @@ export default class BlackjackEngine {
     public getCardCount(): { [key: string]: number } {
         return this.decks.getCardCount();
     }
+
+    public setSoft17(soft17: boolean): void {
+        this.soft17 = soft17;
+    }
 }
