@@ -95,4 +95,8 @@ export default class BlackjackEngine {
     public setSoft17(soft17: boolean): void {
         this.soft17 = soft17;
     }
+
+    public setNumberOfDecks(number_of_decks: number): void {
+        this.decks.setNumberOfDecks(number_of_decks);
+    }
 }
