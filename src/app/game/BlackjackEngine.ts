@@ -98,5 +98,6 @@ export default class BlackjackEngine {
 
     public setNumberOfDecks(number_of_decks: number): void {
         this.decks.setNumberOfDecks(number_of_decks);
+        this.decks.reshuffle();
     }
 }
