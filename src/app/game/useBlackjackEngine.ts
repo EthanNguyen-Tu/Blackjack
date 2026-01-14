@@ -28,6 +28,12 @@ export default function useBlackjackEngine(
 
     useEffect(() => {
         engineRef.current.setNumberOfDecks(numberOfDecks);
+        dispatch({
+            type: "SYNC",
+            payload: {
+                cardCount: { ...engineRef.current.getCardCount() },
+            },
+        });
     }, [numberOfDecks]);
 
     const start = useCallback(() => {
