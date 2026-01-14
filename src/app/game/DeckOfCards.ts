@@ -29,7 +29,7 @@ export class DeckOfCards {
         };
     }
 
-    public reshuffle() {
+    public reshuffle(): void {
         for (let i = 0; i < this.number_of_decks; i++) {
             this.deck = this.deck.concat(PLAYINGCARD_VALUES);
         }
@@ -80,5 +80,9 @@ export class DeckOfCards {
 
     public getCardCount(): { [key: string]: number } {
         return this.card_count;
+    }
+
+    public setNumberOfDecks(number_of_decks: number): void {
+        this.number_of_decks = number_of_decks;
     }
 }
