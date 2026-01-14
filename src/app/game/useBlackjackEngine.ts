@@ -27,6 +27,9 @@ export default function useBlackjackEngine(
     }, [soft17]);
 
     useEffect(() => {
+        if (!engineRef.current) {
+            return;
+        }
         engineRef.current.setNumberOfDecks(numberOfDecks);
         dispatch({
             type: "SYNC",
