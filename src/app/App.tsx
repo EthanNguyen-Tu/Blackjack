@@ -28,7 +28,6 @@ function App() {
     return (
         <Grid container sx={{ bgcolor: "background.default" }}>
             <Grid size={12}>
-                =
                 <AppBar position="static">
                     <Toolbar>
                         <Image
