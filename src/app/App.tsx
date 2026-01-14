@@ -26,7 +26,17 @@ function App() {
     const toggleSoft17 = () => setSoft17(!soft17);
     const handleNumOfDecksChange = (event: ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
-        setNumOfDecks(value === "" ? 1 : Number(value));
+        if (value === "") {
+            setNumOfDecks(1);
+            return;
+        }
+
+        const parsedNum = Number(value);
+        if (Number.isNaN(parsedNum) || parsedNum < 1) {
+            setNumOfDecks(1);
+        } else {
+            setNumOfDecks(parsedNum);
+        }
     };
 
     return (

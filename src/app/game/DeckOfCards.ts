@@ -82,7 +82,12 @@ export class DeckOfCards {
         return this.card_count;
     }
 
-    public setNumberOfDecks(number_of_decks: number): void {
+    public setNumberOfDecks(number_of_decks: number): boolean {
+        if (number_of_decks < 1) {
+            return false;
+        }
+
         this.number_of_decks = number_of_decks;
+        return true;
     }
 }
