@@ -151,11 +151,22 @@ describe("BlackjackEngine with soft17=true", () => {
         expect(engine.getCardCount()).toBe(cardCount);
     });
 
-    it("modifies the number of decks correctly", () => {
-        engine.setNumberOfDecks(3);
+    describe("setNumberOfDecks", () => {
+        it("reshuffles if setNumberOfDecks succeeds", () => {
+            deckMock.setNumberOfDecks.mockReturnValue(true);
+            engine.setNumberOfDecks(3);
 
-        expect(deckMock.reshuffle).toHaveBeenCalled();
-        expect(deckMock.setNumberOfDecks).toHaveBeenCalledWith(3);
+            expect(deckMock.setNumberOfDecks).toHaveBeenCalledWith(3);
+            expect(deckMock.reshuffle).toHaveBeenCalled();
+        });
+
+        it("does not reshuffle if setNumberOfDecks fails", () => {
+            deckMock.setNumberOfDecks.mockReturnValue(false);
+            engine.setNumberOfDecks(0);
+
+            expect(deckMock.setNumberOfDecks).toHaveBeenCalledWith(0);
+            expect(deckMock.reshuffle).not.toHaveBeenCalled();
+        });
     });
 });
 
