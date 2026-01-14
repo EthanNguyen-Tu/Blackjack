@@ -34,6 +34,8 @@ function App() {
         const parsedNum = Number(value);
         if (Number.isNaN(parsedNum) || parsedNum < 1) {
             setNumOfDecks(1);
+        } else if (parsedNum > 8) {
+            setNumOfDecks(8);
         } else {
             setNumOfDecks(parsedNum);
         }
