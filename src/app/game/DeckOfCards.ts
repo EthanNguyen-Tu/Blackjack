@@ -7,7 +7,14 @@ export class DeckOfCards {
     private delay_count: string[] = [];
 
     public constructor(number_of_decks: number = 1) {
-        this.number_of_decks = number_of_decks;
+        if (number_of_decks < 1) {
+            this.number_of_decks = 1;
+        } else if (number_of_decks > 8) {
+            this.number_of_decks = 8;
+        } else {
+            this.number_of_decks = number_of_decks;
+        }
+
         for (let i = 0; i < this.number_of_decks; i++) {
             this.deck = this.deck.concat(PLAYINGCARD_VALUES);
         }
@@ -83,7 +90,7 @@ export class DeckOfCards {
     }
 
     public setNumberOfDecks(number_of_decks: number): boolean {
-        if (number_of_decks < 1) {
+        if (number_of_decks < 1 || number_of_decks > 8) {
             return false;
         }
 
