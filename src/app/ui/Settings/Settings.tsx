@@ -121,7 +121,7 @@ function Settings({
                                             onChange={toggleSoft17}
                                         />
                                     }
-                                    label="Dealer Deals on Soft 17"
+                                    label="Dealer Hits on Soft 17"
                                     labelPlacement="start"
                                 />
                                 <FormControlLabel
