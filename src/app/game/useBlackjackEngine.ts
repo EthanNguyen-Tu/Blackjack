@@ -26,6 +26,10 @@ export default function useBlackjackEngine(
         engineRef.current?.setSoft17(soft17);
     }, [soft17]);
 
+    useEffect(() => {
+        engineRef.current.setNumberOfDecks(numberOfDecks);
+    }, [numberOfDecks]);
+
     const start = useCallback(() => {
         engineRef.current.initRound();
         dispatch({
