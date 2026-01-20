@@ -11,16 +11,25 @@ interface DecisionPanelProps {
     onHit: () => void;
     onStand: () => void;
     onNextGame: () => void;
+    onSplit: () => void;
+    canSplit: boolean;
     sx?: SxProps<Theme>;
 }
 
-function DecisionPanel(props: DecisionPanelProps) {
-    const { gameState, onStart, onHit, onStand, onNextGame, sx } = props;
-
-    const options: ReactNode[] = [];
+function DecisionPanel({
+    gameState,
+    onStart,
+    onHit,
+    onStand,
+    onNextGame,
+    onSplit,
+    canSplit,
+    sx,
+}: DecisionPanelProps) {
+    let options: ReactNode[];
     switch (gameState) {
         case BlackjackState.PLAYER_TURN:
-            options.push(
+            options = [
                 <Button
                     onClick={onHit}
                     key={"Button-Hit"}
@@ -31,9 +40,20 @@ function DecisionPanel(props: DecisionPanelProps) {
                     }}
                 >
                     Hit
-                </Button>
-            );
-            options.push(
+                </Button>,
+                canSplit && (
+                    <Button
+                        onClick={onSplit}
+                        key={"Button-Stand"}
+                        sx={{
+                            color: "primary.contrastText",
+                            height: "50px",
+                            width: "100%",
+                        }}
+                    >
+                        Split
+                    </Button>
+                ),
                 <Button
                     onClick={onStand}
                     key={"Button-Stand"}
@@ -44,11 +64,11 @@ function DecisionPanel(props: DecisionPanelProps) {
                     }}
                 >
                     Stand
-                </Button>
-            );
+                </Button>,
+            ];
             break;
         case BlackjackState.END:
-            options.push(
+            options = [
                 <Button
                     onClick={onNextGame}
                     key={"Button-NextGame"}
@@ -59,11 +79,11 @@ function DecisionPanel(props: DecisionPanelProps) {
                     }}
                 >
                     Next Game
-                </Button>
-            );
+                </Button>,
+            ];
             break;
         default:
-            options.push(
+            options = [
                 <Button
                     onClick={onStart}
                     key={"Button-Start"}
@@ -74,8 +94,8 @@ function DecisionPanel(props: DecisionPanelProps) {
                     }}
                 >
                     Start
-                </Button>
-            );
+                </Button>,
+            ];
     }
 
     return (
