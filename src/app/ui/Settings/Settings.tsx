@@ -9,6 +9,7 @@ import { Grid } from "@mui/system";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
+import { MAX_HAND_SIZE } from "@/app/shared/constants/playingcards";
 
 interface SettingsProps {
     showAllCards: boolean;
@@ -132,7 +133,7 @@ function Settings({
                                                         textAlign: "right",
                                                     },
                                                     min: 1,
-                                                    max: 8,
+                                                    max: MAX_HAND_SIZE,
                                                 },
                                             }}
                                         />
