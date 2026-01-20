@@ -6,3 +6,9 @@
 .card {
     position: absolute;
 }
+
+.highlight {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgba(245, 245, 0, 0.5);
+}

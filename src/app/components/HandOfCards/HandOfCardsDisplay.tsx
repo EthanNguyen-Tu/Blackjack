@@ -13,11 +13,18 @@ interface HandOfCardsProps {
     hiddenCards?: string[];
     visibleCards?: string[];
     vertical?: boolean;
+    highlight?: boolean;
     key?: number;
 }
 
-function HandOfCardsDisplay(props: HandOfCardsProps) {
-    const { variant, hiddenCards, visibleCards, vertical, key } = props;
+function HandOfCardsDisplay({
+    variant,
+    hiddenCards,
+    visibleCards,
+    vertical = false,
+    highlight = false,
+    key = 0,
+}: HandOfCardsProps) {
     const [activeIdx, setActiveIdex] = useState<number | null>(null);
     const cards: React.ReactNode[] = [];
     const toggleActiveIdx = (idx: number) => {
@@ -40,7 +47,7 @@ function HandOfCardsDisplay(props: HandOfCardsProps) {
                     sx={{
                         zIndex: activeIdx === idx ? MAX_HAND_SIZE : idx,
                         marginTop: 25 * idx + "px",
-                        marginLeft: (vertical ?? idx === 0) ? "0" : "-40px",
+                        marginLeft: vertical || idx === 0 ? "0" : "-75px",
                         transform:
                             activeIdx === idx ? "translateY(-20px)" : "none",
                         cursor: "pointer",
@@ -58,7 +65,7 @@ function HandOfCardsDisplay(props: HandOfCardsProps) {
                     onClick={() => toggleActiveIdx(idx)}
                     sx={{
                         zIndex: activeIdx === idx ? MAX_HAND_SIZE : idx,
-                        marginLeft: (vertical ?? idx === 0) ? "0" : "-75px",
+                        marginLeft: vertical || idx === 0 ? "0" : "-75px",
                         transform:
                             activeIdx === idx ? "translateY(-20px)" : "none",
                         cursor: "pointer",
@@ -76,7 +83,7 @@ function HandOfCardsDisplay(props: HandOfCardsProps) {
                     onClick={() => toggleActiveIdx(idx)}
                     sx={{
                         zIndex: activeIdx === idx ? MAX_HAND_SIZE : idx,
-                        marginLeft: (vertical ?? idx === 0) ? "0" : "-75px",
+                        marginLeft: vertical || idx === 0 ? "0" : "-75px",
                         marginTop: vertical
                             ? idx === 0
                                 ? "0"
@@ -87,7 +94,7 @@ function HandOfCardsDisplay(props: HandOfCardsProps) {
                             activeIdx === idx ? "translateY(-20px)" : "none",
                         transition: "transform 0.2s ease",
                     }}
-                    key={`${variant}-${card}-${idx}-${key ?? 0}`}
+                    key={`${variant}-${card}-${idx}-${key}`}
                 />,
             ),
         );
@@ -95,7 +102,7 @@ function HandOfCardsDisplay(props: HandOfCardsProps) {
 
     return (
         <div
-            className={styles.container}
+            className={`${styles.container} ${highlight ? styles.highlight : ""}`}
             style={{ flexDirection: vertical ? "column" : "row" }}
         >
             {cards}
