@@ -68,4 +68,8 @@ export class HandOfCards {
         this.value = 0;
         this.numAces = 0;
     }
+
+    public length(): number {
+        return this.hand.length;
+    }
 }
