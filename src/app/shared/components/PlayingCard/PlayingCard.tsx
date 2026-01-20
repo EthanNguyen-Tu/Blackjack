@@ -14,12 +14,14 @@ export const cardStyles: Record<string, CardStyle> = {
 
 interface PlayingCardProps {
     card?: string;
+    onClick?: () => void;
     flipped?: boolean;
     sx?: object;
 }
 
 export default function PlayingCard({
     card = "Ah",
+    onClick,
     flipped = false,
     sx = {},
 }: PlayingCardProps) {
@@ -30,6 +32,7 @@ export default function PlayingCard({
         return (
             <div
                 className={styles.card}
+                onClick={onClick}
                 style={{
                     color: cardStyle.color,
                     alignContent: "center",
@@ -43,7 +46,11 @@ export default function PlayingCard({
     }
 
     return (
-        <div className={styles.card} style={{ color: cardStyle.color, ...sx }}>
+        <div
+            className={styles.card}
+            onClick={onClick}
+            style={{ color: cardStyle.color, ...sx }}
+        >
             <div className={styles.top}>
                 <span className={styles.text}>{cardValue}</span>
                 <span className={styles.edgeSymbol}>{cardStyle.icon}</span>
