@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PlayingCard from "../../shared/components/PlayingCard/PlayingCard";
 import styles from "./HandOfCardsDisplay.module.css";
 import { MAX_HAND_SIZE } from "@/app/shared/constants/playingcards";
@@ -20,6 +20,13 @@ function HandOfCardsDisplay(props: HandOfCardsProps) {
     const { variant, hiddenCards, visibleCards, vertical, key } = props;
     const [activeIdx, setActiveIdex] = useState<number | null>(null);
     const cards: React.ReactNode[] = [];
+    const toggleActiveIdx = (idx: number) => {
+        setActiveIdex((cur) => (cur === idx ? null : idx));
+    };
+
+    useEffect(() => {
+        setActiveIdex(null);
+    }, [hiddenCards, visibleCards]);
 
     if (variant === HandOfCardsVariants.DEALER) {
         let cardCount = 0;
@@ -29,7 +36,7 @@ function HandOfCardsDisplay(props: HandOfCardsProps) {
                 <PlayingCard
                     card={card}
                     flipped={true}
-                    onClick={() => setActiveIdex(idx)}
+                    onClick={() => toggleActiveIdx(idx)}
                     sx={{
                         zIndex: activeIdx === idx ? MAX_HAND_SIZE : idx,
                         marginTop: 25 * idx + "px",
@@ -48,7 +55,7 @@ function HandOfCardsDisplay(props: HandOfCardsProps) {
             cards.push(
                 <PlayingCard
                     card={card}
-                    onClick={() => setActiveIdex(idx)}
+                    onClick={() => toggleActiveIdx(idx)}
                     sx={{
                         zIndex: activeIdx === idx ? MAX_HAND_SIZE : idx,
                         marginLeft: (vertical ?? idx === 0) ? "0" : "-75px",
@@ -66,7 +73,7 @@ function HandOfCardsDisplay(props: HandOfCardsProps) {
             cards.push(
                 <PlayingCard
                     card={card}
-                    onClick={() => setActiveIdex(idx)}
+                    onClick={() => toggleActiveIdx(idx)}
                     sx={{
                         zIndex: activeIdx === idx ? MAX_HAND_SIZE : idx,
                         marginLeft: (vertical ?? idx === 0) ? "0" : "-75px",
