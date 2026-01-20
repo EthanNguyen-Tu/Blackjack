@@ -10,8 +10,10 @@ module.exports = {
     transform: {
         ...tsJestTransformCfg,
     },
-    moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
-        prefix: "<rootDir>/",
-    }),
+    moduleNameMapper: {
+        "\\.module\\.css$": "identity-obj-proxy",
+        ...pathsToModuleNameMapper(compilerOptions.paths, {
+            prefix: "<rootDir>/",
+        }),
+    },
 };
-
